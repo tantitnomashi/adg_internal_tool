@@ -43,7 +43,7 @@ export default function Index() {
               {downloadable ?
                 <>
                   <a className="btn btn-success py-4 " href={data}
-                    download>Tải về</a>
+                    download="mmm.jpg">Tải về</a>
                 </> :
                 <FileUpload onSuccess={onUploadSuccess} />
 

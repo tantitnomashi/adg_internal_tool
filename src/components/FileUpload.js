@@ -34,7 +34,7 @@ const FileUpload = ({ onSuccess }) => {
       const res = await API.generateExcel(formData);
 
       console.log(res.data)
-      let xlsx = URL.createObjectURL(new Blob([res.data], { type: "image/jpg" }));
+      let xlsx = URL.createObjectURL(new Blob([res.data], { type: "image/jpg", }));
 
       onSuccess(xlsx);
       // if (res.data.statusCode == 200) {
