@@ -15,8 +15,12 @@ export default function Index() {
   const [downloadable, setDownloadable] = React.useState(false);
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
+    document.body.classList.toggle("index-page");
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      document.body.classList.toggle("index-page");
+    };
   }, []);
-
   const onUploadSuccess = (newData) => {
     setData(newData);
     setDownloadable(true);
