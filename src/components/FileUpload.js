@@ -31,6 +31,13 @@ const FileUpload = ({ onSuccess }) => {
     // formData.append('file', file);
 
     try {
+
+
+
+
+
+
+
       const res = await API.generateExcel(formData);
 
       console.log(res.data)

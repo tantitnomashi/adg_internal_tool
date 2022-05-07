@@ -27,7 +27,7 @@ const adminApi = {
 	login: (params) => instance.post('/v1/users/login', params),
 	loadAdminDashboard: () => instance.get('/dashboard/info'),
 	logout: () => instance.get('/user/logout'),
-	generateExcel: (params) => instance.get('https://picsum.photos/200/300'),
+	generateExcel: (params) => instance.get('https://picsum.photos/200/300', { responseType: "blob" }),
 
 
 	// // API for Cainet Model
