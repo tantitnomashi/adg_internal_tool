@@ -79,11 +79,9 @@ export default function IndexNavbar() {
       <Container>
         <div className="navbar-translate">
           <NavbarBrand to="/" tag={Link} id="navbar-brand">
-            <span className='h2'>ADG</span> Internal Tools
+            <span className='h1 text-light'>ADG • Internal Tools </span>
           </NavbarBrand>
-          <UncontrolledTooltip placement="bottom" target="navbar-brand">
-            Designed and Coded by Creative Tim
-          </UncontrolledTooltip>
+
           <button
             aria-expanded={collapseOpen}
             className="navbar-toggler navbar-toggler"
@@ -105,7 +103,7 @@ export default function IndexNavbar() {
             <Row>
               <Col className="collapse-brand" xs="6">
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  BLK•React
+                  ADG • Internal Tools
                 </a>
               </Col>
               <Col className="collapse-close text-right" xs="6">

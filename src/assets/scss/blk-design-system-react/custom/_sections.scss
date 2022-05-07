@@ -316,6 +316,7 @@
         position: relative;
         flex: 1;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         border: 3px dotted gray;
@@ -328,7 +329,6 @@
     .custom-file-label {
         color: #000;
     }
-
     .select-bank {
         position: relative;
         flex: 1;
@@ -379,6 +379,19 @@
             height: 100%;
             font-weight: 400;
         }
+    }
+    .filename{
+        width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: inline-block;
+        text-align: left;
+    }
+    .btn-remove-file{
+        width: 24px;
+        height: 24px;
+        padding: 5px;
     }
 }
 .clear-filter {

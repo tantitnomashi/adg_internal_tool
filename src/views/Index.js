@@ -50,24 +50,13 @@ export default function Index() {
           <PageHeader />
           <Container>
             <div className="content-center">
-              <h3 className="d-none d-sm-block">
+              <h2 className="d-none d-sm-block">
                 Hồ sơ giải ngân
-              </h3>
+              </h2>
               {downloadable ?
                 <>
-
-
-
-
-
-
-
-
-                  <a className="btn btn-success" href={data}
+                  <a className="btn btn-success py-4 " href={data}
                     download>Tải về</a>
-
-
-
                 </> :
                 <FileUpload onSuccess={onUploadSuccess} />
 
