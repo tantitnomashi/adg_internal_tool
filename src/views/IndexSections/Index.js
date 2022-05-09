@@ -35,16 +35,9 @@ export default function Index() {
                 Hồ sơ giải ngân
               </h2>
               {downloadable ?
-<<<<<<< HEAD:src/views/Index.js
-                <>
-                  <a className="btn btn-success py-4 " href={data}
-                    download="vgvg.jpg">Tải về</a>
-                </> :
-=======
                 <a className="btn btn-success py-4 " href={data}
                   download>Tải về</a>
                 :
->>>>>>> c21b8c1f36c4168753346e4866e1188cd89e615d:src/views/IndexSections/Index.js
                 <FileUpload onSuccess={onUploadSuccess} />
               }
 
