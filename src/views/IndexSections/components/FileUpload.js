@@ -6,46 +6,84 @@ import API from 'utils/adminApi';
 
 let tmpConfirmData = [
     {
-        "accountingDate": "Ngày hạch toán",
-        "documentNumber": "Số chứng từ",
-        "dayVouchers": "Ngày chứng từ",
-        "someVills": "Số hóa đơn",
-        "supplier": "Nhà cung cấp",
-        "explain": "Diễn giải",
-        "totalAmountOfGoods": "Tổng tiền hàng",
-        "discount": "Tiền chiết khấu",
-        "vatAmount": "Tiền thuế GTGT",
-        "totalPayment": "Tổng tiền thanh toán",
-        "purchaseCosts": "Chi phí mua hàng",
-        "inventoryValue": "Giá trị nhập kho",
+        "accountingDate": "2022/02/23",
+        "documentNumber": "A1234",
+        "dayVouchers": "2022/02/23",
+        "someVills": "dA0092",
+        "supplier": "Hoa Nhua Sai gon",
+        "explain": "HNSG mua nhu ABS 0012 ",
+        "totalAmountOfGoods": "978787878787",
+        "discount": "5455",
+        "vatAmount": "2224",
+        "totalPayment": "8999988",
+        "purchaseCosts": "76767867",
+        "inventoryValue": "34234",
         "receiveInvoice": "Nhận hóa đơn",
-        "isThePurchaseCost": "Là chi phí mua hàng",
-        "typeOfDocument": "Loại chứng từ",
-        "preCustomsFee": "Phí trước hải quan",
-        "importTax": "Tiền thuế NK",
-        "specialExciseTax": "Tiền thuế TTĐB",
-        "documentNumber": "Số chứng từ (Sổ QT)",
+        "isThePurchaseCost": "X",
+        "typeOfDocument": "CSK",
+        "preCustomsFee": "312312.4",
+        "importTax": "3123",
+        "specialExciseTax": "2338.2232.21",
     },
     {
-        "accountingDate": "0",
-        "documentNumber": "0",
-        "dayVouchers": "0",
-        "someVills": "0",
-        "supplier": "0",
-        "explain": "0",
-        "totalAmountOfGoods": "0",
-        "discount": "0",
-        "vatAmount": "0",
-        "totalPayment": "0",
-        "purchaseCosts": "0",
-        "inventoryValue": "0",
-        "receiveInvoice": "0",
-        "isThePurchaseCost": "0",
-        "typeOfDocument": "0",
-        "preCustomsFee": "0",
-        "importTax": "0",
-        "specialExciseTax": "0",
-        "documentNumber": "0",
+        "accountingDate": "2022/02/23",
+        "documentNumber": "A88888",
+        "dayVouchers": "2022/02/23",
+        "someVills": "dA0092",
+        "supplier": "Hoa Nhua Sai gon",
+        "explain": "HNSG mua nhu ABS 0012 ",
+        "totalAmountOfGoods": "978787878787",
+        "discount": "5455",
+        "vatAmount": "2224",
+        "totalPayment": "8999988",
+        "purchaseCosts": "76767867",
+        "inventoryValue": "34234",
+        "receiveInvoice": "Nhận hóa đơn",
+        "isThePurchaseCost": "X",
+        "typeOfDocument": "CSK",
+        "preCustomsFee": "312312.4",
+        "importTax": "3123",
+        "specialExciseTax": "2338.2232.21",
+    },
+    {
+        "accountingDate": "2022/02/23",
+        "documentNumber": "A9999",
+        "dayVouchers": "2022/02/23",
+        "someVills": "dA0092",
+        "supplier": "Hoa Nhua Sai gon",
+        "explain": "HNSG mua nhu ABS 0012 ",
+        "totalAmountOfGoods": "978787878787",
+        "discount": "5455",
+        "vatAmount": "2224",
+        "totalPayment": "8999988",
+        "purchaseCosts": "76767867",
+        "inventoryValue": "34234",
+        "receiveInvoice": "Nhận hóa đơn",
+        "isThePurchaseCost": "X",
+        "typeOfDocument": "CSK",
+        "preCustomsFee": "312312.4",
+        "importTax": "3123",
+        "specialExciseTax": "2338.2232.21",
+    },
+    {
+        "accountingDate": "2022/02/23",
+        "documentNumber": "A0000",
+        "dayVouchers": "2022/02/23",
+        "someVills": "dA0092",
+        "supplier": "Hoa Nhua Sai gon",
+        "explain": "HNSG mua nhu ABS 0012 ",
+        "totalAmountOfGoods": "978787878787",
+        "discount": "5455",
+        "vatAmount": "2224",
+        "totalPayment": "8999988",
+        "purchaseCosts": "76767867",
+        "inventoryValue": "34234",
+        "receiveInvoice": "Nhận hóa đơn",
+        "isThePurchaseCost": "X",
+        "typeOfDocument": "CSK",
+        "preCustomsFee": "312312.4",
+        "importTax": "3123",
+        "specialExciseTax": "2338.2232.21",
     }
 ]
 const DataView = ({ originValue, onChange }) => {
@@ -58,13 +96,13 @@ const DataView = ({ originValue, onChange }) => {
 
     if (changeMode) {
         return (
-            <div className="d-flex">
+            <div className="d-flex bill-value">
 
-                <Input className="flex-fill rounded-0 text-dark py-0 " type="text"
+                <Input className="flex-fill rounded-0 text-dark py-0 h-auto " type="text"
                     value={val}
                     onChange={({ target: { value } }) => setVal(value)} />
 
-                <button className="btn-simple p-0 px-2 rounded-0" color="primary" size="sm"
+                <button className="btn-simple p-0 px-2 rounded-0 h-auto" color="primary" size="sm"
                     onClick={() => {
                         setChangeMode(false);
                         onChangeValue();
@@ -75,13 +113,11 @@ const DataView = ({ originValue, onChange }) => {
         )
     } else {
         return (
-            <div className="d-flex w-100">
+            <div className="d-flex bill-value">
                 <div className="flex-fill">
                     {originValue !== val ?
                         <>
-                            <span className="text-danger">{originValue}</span>
-                            &nbsp;&rarr;&nbsp;
-                            <span className="text-success">{val}</span>
+                            <span className="text-info">{val}</span>
                         </> :
                         originValue
                     }
@@ -107,123 +143,102 @@ const BillTab = ({ isVisible = true, data, dataModified }) => {
                 <tr>
                     <th>Hạng mục</th>
                     <th className="text-center">Thông tin</th>
+                    <th>Hạng mục</th>
+                    <th className="text-center">Thông tin</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Ngày hạch toán</td>
+                    <td className='font-weight-bold'>Ngày hạch toán</td>
                     <td className="text-center">
                         <DataView originValue={data.accountingDate} valueChanged={dataModified.accountingDate} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Số chứng từ</td>
+                    <td className='font-weight-bold'>Số chứng từ</td>
                     <td className="text-center">
                         <DataView originValue={data.documentNumber} valueChanged={dataModified.documentNumber} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Ngày chứng từ</td>
+                    <td className='font-weight-bold'>Ngày chứng từ</td>
                     <td className="text-center">
                         <DataView originValue={data.dayVouchers} valueChanged={dataModified.dayVouchers} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Số hóa đơn</td>
+                    <td className='font-weight-bold'>Số hóa đơn</td>
                     <td className="text-center">
                         <DataView originValue={data.someVills} valueChanged={dataModified.someVills} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Nhà cung cấp</td>
+                    <td className='font-weight-bold'>Nhà cung cấp</td>
                     <td className="text-center">
                         <DataView originValue={data.supplier} valueChanged={dataModified.supplier} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Diễn giải</td>
+                    <td className='font-weight-bold'>Diễn giải</td>
                     <td className="text-center">
                         <DataView originValue={data.explain} valueChanged={dataModified.explain} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Tổng tiền hàng</td>
+                    <td className='font-weight-bold'>Tổng tiền hàng</td>
                     <td className="text-center"
                     ><DataView originValue={data.totalAmountOfGoods} valueChanged={dataModified.totalAmountOfGoods} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Tiền chiết khấu</td>
+                    <td className='font-weight-bold'>Tiền chiết khấu</td>
                     <td className="text-center">
                         <DataView originValue={data.discount} valueChanged={dataModified.discount} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Tiền thuế GTGT</td>
+                    <td className='font-weight-bold'>Tiền thuế GTGT</td>
                     <td className="text-center">
                         <DataView originValue={data.vatAmount} valueChanged={dataModified.vatAmount} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Tổng tiền thanh toán</td>
+                    <td className='font-weight-bold'>Tổng tiền thanh toán</td>
                     <td className="text-center">
                         <DataView originValue={data.totalPayment} valueChanged={dataModified.totalPayment} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Chi phí mua hàng</td>
+                    <td className='font-weight-bold'>Chi phí mua hàng</td>
                     <td className="text-center">
                         <DataView originValue={data.purchaseCosts} valueChanged={dataModified.purchaseCosts} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Giá trị nhập kho</td>
+                    <td className='font-weight-bold'>Giá trị nhập kho</td>
                     <td className="text-center">
                         <DataView originValue={data.inventoryValue} valueChanged={dataModified.inventoryValue} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Nhận hóa đơn</td>
+                    <td className='font-weight-bold'>Nhận hóa đơn</td>
                     <td className="text-center">
                         <DataView originValue={data.receiveInvoice} valueChanged={dataModified.receiveInvoice} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Là chi phí mua hàng</td>
+                    <td className='font-weight-bold'>Là chi phí mua hàng</td>
                     <td className="text-center">
                         <DataView originValue={data.isThePurchaseCost} valueChanged={dataModified.isThePurchaseCost} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Loại chứng từ</td>
+                    <td className='font-weight-bold'>Loại chứng từ</td>
                     <td className="text-center">
                         <DataView originValue={data.typeOfDocument} valueChanged={dataModified.typeOfDocument} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Phí trước hải quan</td>
+                    <td className='font-weight-bold'>Phí trước hải quan</td>
                     <td className="text-center">
                         <DataView originValue={data.preCustomsFee} valueChanged={dataModified.preCustomsFee} />
                     </td>
                 </tr>
                 <tr>
-                    <td>Tiền thuế NK</td>
+                    <td className='font-weight-bold'>Tiền thuế NK</td>
                     <td className="text-center">
                         <DataView originValue={data.importTax} valueChanged={dataModified.importTax} />
                     </td>
-                </tr>
-                <tr>
-                    <td>Tiền thuế TTĐB</td>
+                    <td className='font-weight-bold'>Tiền thuế TTĐB</td>
                     <td className="text-center">
                         <DataView originValue={data.specialExciseTax} valueChanged={dataModified.specialExciseTax} />
                     </td>
                 </tr>
-                <tr>
-                    <td>Số chứng từ (Sổ QT)</td>
-                    <td className="text-center">
-                        <DataView originValue={data.documentNumber} valueChanged={dataModified.documentNumber} />
-                    </td>
-                </tr>
+
             </tbody>
         </Table>
     )
@@ -315,7 +330,7 @@ const FileUpload = ({ onSuccess }) => {
 
     return (
         <div>
-            <Modal isOpen={isOpenConfirm}>
+            <Modal isOpen={isOpenConfirm} size='xl'>
                 <div className="modal-header">
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => hadOpenConfirm(false)}>
                         <i className="tim-icons icon-simple-remove"></i>
