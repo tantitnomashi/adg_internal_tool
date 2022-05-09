@@ -2,7 +2,15 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "*": ["src/*"]
+      "src/*": [
+        "src/*"
+      ]
     }
-  }
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.json",
+    "src/**/*.css",
+    "src/**/*.scss"
+  ]
 }
