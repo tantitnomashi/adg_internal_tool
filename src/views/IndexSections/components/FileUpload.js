@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { Fragment, useState } from 'react';
-import { Button, Container, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
 
 import API from 'utils/adminApi';
 
@@ -39,17 +39,67 @@ let tmpConfirmData = [
         "totalPayment": "0",
         "purchaseCosts": "0",
         "inventoryValue": "0",
-        "receiveInvoice": "Nhận hóa đơn",
-        "isThePurchaseCost": "Là chi phí mua hàng",
-        "typeOfDocument": "Loại chứng từ",
-        "preCustomsFee": "Phí trước hải quan",
-        "importTax": "Tiền thuế NK",
-        "specialExciseTax": "Tiền thuế TTĐB",
-        "documentNumber": "Số chứng từ (Sổ QT)",
+        "receiveInvoice": "0",
+        "isThePurchaseCost": "0",
+        "typeOfDocument": "0",
+        "preCustomsFee": "0",
+        "importTax": "0",
+        "specialExciseTax": "0",
+        "documentNumber": "0",
     }
 ]
+const DataView = ({ originValue, onChange }) => {
+    const [changeMode, setChangeMode] = useState(false);
+    const [val, setVal] = useState(originValue);
 
-const BillTab = ({ isVisible = true, data }) => {
+    const onChangeValue = () => {
+        // onChange();
+    }
+
+    if (changeMode) {
+        return (
+            <div className="d-flex">
+
+                <Input className="flex-fill rounded-0 text-dark py-0 " type="text"
+                    value={val}
+                    onChange={({ target: { value } }) => setVal(value)} />
+
+                <button className="btn-simple p-0 px-2 rounded-0" color="primary" size="sm"
+                    onClick={() => {
+                        setChangeMode(false);
+                        onChangeValue();
+                    }}>
+                    <i className="tim-icons icon-check-2" />
+                </button>
+            </div>
+        )
+    } else {
+        return (
+            <div className="d-flex w-100">
+                <div className="flex-fill">
+                    {originValue !== val ?
+                        <>
+                            <span className="text-danger">{originValue}</span>
+                            &nbsp;&rarr;&nbsp;
+                            <span className="text-success">{val}</span>
+                        </> :
+                        originValue
+                    }
+                </div>
+                <button className="btn-link p-0 px-2" color="primary" size="sm"
+                    onClick={() => {
+                        setChangeMode(true);
+                    }}>
+                    <i className="tim-icons icon-pencil" />
+                </button>
+            </div>
+        )
+    }
+
+}
+
+
+const BillTab = ({ isVisible = true, data, dataModified }) => {
 
     return (
         <Table className={classNames({ "d-none": isVisible })}>
@@ -60,36 +110,131 @@ const BillTab = ({ isVisible = true, data }) => {
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Ngày hạch toán</td>       <td className="text-center">{data.accountingDate}</td> </tr>
-                <tr><td>Số chứng từ</td>          <td className="text-center">{data.documentNumber}</td> </tr>
-                <tr><td>Ngày chứng từ</td>        <td className="text-center">{data.dayVouchers}</td> </tr>
-                <tr><td>Số hóa đơn</td>           <td className="text-center">{data.someVills}</td> </tr>
-                <tr><td>Nhà cung cấp</td>         <td className="text-center">{data.supplier}</td> </tr>
-                <tr><td>Diễn giải</td>            <td className="text-center">{data.explain}</td> </tr>
-                <tr><td>Tổng tiền hàng</td>       <td className="text-center">{data.totalAmountOfGoods}</td> </tr>
-                <tr><td>Tiền chiết khấu</td>      <td className="text-center">{data.discount}</td> </tr>
-                <tr><td>Tiền thuế GTGT</td>       <td className="text-center">{data.vatAmount}</td> </tr>
-                <tr><td>Tổng tiền thanh toán</td> <td className="text-center">{data.totalPayment}</td> </tr>
-                <tr><td>Chi phí mua hàng</td>     <td className="text-center">{data.purchaseCosts}</td> </tr>
-                <tr><td>Giá trị nhập kho</td>     <td className="text-center">{data.inventoryValue}</td> </tr>
-                <tr><td>Nhận hóa đơn</td>         <td className="text-center">{data.receiveInvoice}</td> </tr>
-                <tr><td>Là chi phí mua hàng</td>  <td className="text-center">{data.isThePurchaseCost}</td> </tr>
-                <tr><td>Loại chứng từ</td>        <td className="text-center">{data.typeOfDocument}</td> </tr>
-                <tr><td>Phí trước hải quan</td>   <td className="text-center">{data.preCustomsFee}</td> </tr>
-                <tr><td>Tiền thuế NK</td>         <td className="text-center">{data.importTax}</td> </tr>
-                <tr><td>Tiền thuế TTĐB</td>       <td className="text-center">{data.specialExciseTax}</td> </tr>
-                <tr><td>Số chứng từ (Sổ QT)</td>  <td className="text-center">{data.documentNumber}</td> </tr>
+                <tr>
+                    <td>Ngày hạch toán</td>
+                    <td className="text-center">
+                        <DataView originValue={data.accountingDate} valueChanged={dataModified.accountingDate} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số chứng từ</td>
+                    <td className="text-center">
+                        <DataView originValue={data.documentNumber} valueChanged={dataModified.documentNumber} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ngày chứng từ</td>
+                    <td className="text-center">
+                        <DataView originValue={data.dayVouchers} valueChanged={dataModified.dayVouchers} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số hóa đơn</td>
+                    <td className="text-center">
+                        <DataView originValue={data.someVills} valueChanged={dataModified.someVills} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nhà cung cấp</td>
+                    <td className="text-center">
+                        <DataView originValue={data.supplier} valueChanged={dataModified.supplier} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Diễn giải</td>
+                    <td className="text-center">
+                        <DataView originValue={data.explain} valueChanged={dataModified.explain} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tổng tiền hàng</td>
+                    <td className="text-center"
+                    ><DataView originValue={data.totalAmountOfGoods} valueChanged={dataModified.totalAmountOfGoods} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tiền chiết khấu</td>
+                    <td className="text-center">
+                        <DataView originValue={data.discount} valueChanged={dataModified.discount} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tiền thuế GTGT</td>
+                    <td className="text-center">
+                        <DataView originValue={data.vatAmount} valueChanged={dataModified.vatAmount} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tổng tiền thanh toán</td>
+                    <td className="text-center">
+                        <DataView originValue={data.totalPayment} valueChanged={dataModified.totalPayment} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Chi phí mua hàng</td>
+                    <td className="text-center">
+                        <DataView originValue={data.purchaseCosts} valueChanged={dataModified.purchaseCosts} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Giá trị nhập kho</td>
+                    <td className="text-center">
+                        <DataView originValue={data.inventoryValue} valueChanged={dataModified.inventoryValue} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nhận hóa đơn</td>
+                    <td className="text-center">
+                        <DataView originValue={data.receiveInvoice} valueChanged={dataModified.receiveInvoice} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Là chi phí mua hàng</td>
+                    <td className="text-center">
+                        <DataView originValue={data.isThePurchaseCost} valueChanged={dataModified.isThePurchaseCost} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Loại chứng từ</td>
+                    <td className="text-center">
+                        <DataView originValue={data.typeOfDocument} valueChanged={dataModified.typeOfDocument} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phí trước hải quan</td>
+                    <td className="text-center">
+                        <DataView originValue={data.preCustomsFee} valueChanged={dataModified.preCustomsFee} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tiền thuế NK</td>
+                    <td className="text-center">
+                        <DataView originValue={data.importTax} valueChanged={dataModified.importTax} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tiền thuế TTĐB</td>
+                    <td className="text-center">
+                        <DataView originValue={data.specialExciseTax} valueChanged={dataModified.specialExciseTax} />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Số chứng từ (Sổ QT)</td>
+                    <td className="text-center">
+                        <DataView originValue={data.documentNumber} valueChanged={dataModified.documentNumber} />
+                    </td>
+                </tr>
             </tbody>
         </Table>
     )
 }
 
-const BillTabGroup = ({ data = [] }) => {
+const BillTabGroup = ({ orginData = [], dataModified = [], onModifyData = () => { } }) => {
     const [billIndexSelected, setBillIndex] = useState(0);
     return (
         <div className='confirm-table'>
             <div className='d-flex align-items-end tabs'>
-                {data.map((_, index) => (
+                {orginData.map((_, index) => (
                     <div
                         className={classNames("tab", { tabActive: billIndexSelected === index })}
                         onClick={() => setBillIndex(index)}>
@@ -98,8 +243,8 @@ const BillTabGroup = ({ data = [] }) => {
                 ))}
             </div>
             <Container className='tab-detail'>
-                {data.map((val, index) => (
-                    <BillTab key={index} data={val} isVisible={billIndexSelected === index} />
+                {orginData.map((val, index) => (
+                    <BillTab key={index} data={val} dataModified={dataModified} isVisible={billIndexSelected === index} />
                 ))}
             </Container>
         </div>
@@ -109,6 +254,7 @@ const BillTabGroup = ({ data = [] }) => {
 
 
 const FileUpload = ({ onSuccess }) => {
+    const [editConfirm, setEditConfirm] = useState([]);
     const [file, setFile] = useState([]);
     const [message, setMessage] = useState('');
     const [isOpenConfirm, hadOpenConfirm] = useState(false);
@@ -174,17 +320,17 @@ const FileUpload = ({ onSuccess }) => {
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => hadOpenConfirm(false)}>
                         <i className="tim-icons icon-simple-remove"></i>
                     </button>
-                    <h5 className="modal-title">Xác nhận</h5>
+                    <h5 className="modal-title">Xác nhận lại</h5>
                 </div>
                 <ModalBody>
-                    <BillTabGroup data={tmpConfirmData} />
+                    <BillTabGroup orginData={tmpConfirmData} dataModified={editConfirm} onModifyData={setEditConfirm} />
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={() => hadOpenConfirm(false)}>
-                        Close
+                        Hủy
                     </Button>
                     <Button color="primary" onClick={() => onConfirmData()}>
-                        Save changes
+                        Xác nhận
                     </Button>
                 </ModalFooter>
             </Modal>
