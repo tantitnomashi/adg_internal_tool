@@ -1,17 +1,30 @@
 // style for the landing page
+
+.register-page,
+.section.section-signup {
+
+  .squares,
+  .square {
+    @include linear-gradient($primary-states, $primary);
+  }
+}
+
+
 .index-page {
   .page-header {
     height: 100vh;
 
     .container {
-      > .content-center {
+      >.content-center {
         &.brand {
+
           .h1-seo,
           h3 {
             line-height: 110%;
             color: $white;
             font-weight: 600;
             text-transform: capitalize;
+
             span {
               font-weight: $font-weight-bold;
             }
@@ -31,12 +44,13 @@
   }
 
   .squares {
+    @include linear-gradient($info-states, $info);
     animation: move-left-right 1s infinite;
-    @include linear-gradient($primary-states, $primary);
     position: absolute;
     transition: 0.5s ease-out;
     overflow: hidden;
     border-radius: 20%;
+
     &.square1 {
       animation: move-left-right 4s infinite;
       height: 300px;
@@ -100,7 +114,64 @@
       opacity: 0.1;
     }
   }
+
+
+
+
+
 }
+
+
+
+.confirm-table {
+  .tabs {
+    height: 50px;
+
+    .tab {
+      position: relative;
+      margin-right: 2px;
+      color: $default;
+      padding: auto;
+      padding: 8px 15px;
+      background-color: $default-color-opacity;
+      cursor: pointer;
+      height: 40px;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        height: 50px;
+      }
+    }
+
+    .tabActive {
+      background-color: $default;
+      color: #FFF;
+    }
+
+  }
+
+  .tab-detail {
+    border: 1px solid $default;
+  }
+
+
+  th,
+  td {
+    color: #000 !important;
+    padding: 3px !important;
+    border-bottom: 1px solid rgb(153, 153, 153) !important;
+  }
+  th {
+    padding: 5px !important;
+    font-size: 16px !important;
+  }
+  tr{
+    &:last-child>td{
+      border-bottom: 0 !important;
+    }
+  }
+}
+
 .landing-page {
   overflow-x: hidden;
 
@@ -113,6 +184,7 @@
       width: 100%;
       opacity: 0.5;
     }
+
     .path {
       max-width: 65%;
       right: 0;
@@ -159,6 +231,7 @@
       top: -50px;
     }
   }
+
   .section:nth-of-type(2) {
     .path {
       left: auto;
@@ -166,6 +239,7 @@
       max-width: 70%;
       top: 0;
     }
+
     .path2 {
       position: absolute;
       opacity: 0.02;
@@ -184,6 +258,7 @@
       top: -90px;
     }
   }
+
   .section:nth-of-type(3) {
     padding-top: 200px;
 
@@ -194,12 +269,14 @@
       top: 60px;
     }
   }
+
   .section:nth-of-type(4) {
     .path {
       max-width: 60%;
       right: 3%;
       top: 15%;
     }
+
     .path2 {
       position: absolute;
       opacity: 0.02;
@@ -209,6 +286,7 @@
       top: 100px;
     }
   }
+
   .section:nth-of-type(5) {
     .path {
       max-width: 50%;
@@ -231,9 +309,11 @@
     .share {
       margin-top: 150px;
     }
+
     h1 {
       font-weight: 600;
     }
+
     .title {
       color: $white;
     }
@@ -325,6 +405,7 @@
   .profile-container {
     color: $white;
   }
+
   .photo-container {
     max-width: 400px;
     overflow: hidden;
@@ -384,6 +465,7 @@
       color: $opacity-5;
     }
   }
+
   .card {
     .card-header {
       .profile-title {
@@ -394,6 +476,7 @@
 }
 
 .section-full-page {
+
   &:after,
   &:before {
     display: block;
@@ -414,13 +497,13 @@
     opacity: 0.5;
   }
 
-  > .content,
-  > .footer {
+  >.content,
+  >.footer {
     position: relative;
     z-index: 4;
   }
 
-  > .content {
+  >.content {
     min-height: calc(100vh - 80px);
   }
 
@@ -436,7 +519,7 @@
     background-position: center center;
   }
 
-  .footer nav > ul a:not(.btn),
+  .footer nav>ul a:not(.btn),
   .footer,
   .footer .copyright a {
     color: $white;
@@ -474,7 +557,7 @@
   .square-1 {
     height: 300px;
     width: 300px;
-    background-image: url($asset-base-path + "/img/square1.png");
+    background-image: url("../" +$asset-base-path + "/img/square1.png");
     top: 175px;
     right: 150px;
     opacity: 0.8;
@@ -483,7 +566,7 @@
   .square-2 {
     height: 120px;
     width: 120px;
-    background-image: url($asset-base-path + "/img/square2.png");
+    background-image: url("../" +$asset-base-path + "/img/square2.png");
     opacity: 0.9;
     top: 310px;
     right: 390px;
@@ -492,7 +575,7 @@
   .square-3 {
     width: 200px;
     height: 200px;
-    background-image: url($asset-base-path + "/img/square3.png");
+    background-image: url("../" +$asset-base-path + "/img/square3.png");
     opacity: 0.3;
     top: -50px;
     right: 400px;
@@ -501,7 +584,7 @@
   .square-4 {
     height: 200px;
     width: 200px;
-    background-image: url($asset-base-path + "/img/square4.png");
+    background-image: url("../" +$asset-base-path + "/img/square4.png");
     right: -50px;
     top: 525px;
   }
@@ -509,7 +592,7 @@
   .square-5 {
     height: 150px;
     width: 150px;
-    background-image: url($asset-base-path + "/img/square5.png");
+    background-image: url("../" +$asset-base-path + "/img/square5.png");
     opacity: 0.5;
     top: 500px;
     right: 470px;
@@ -518,7 +601,7 @@
   .square-6 {
     height: 70px;
     width: 70px;
-    background-image: url($asset-base-path + "/img/square5.png");
+    background-image: url("../" +$asset-base-path + "/img/square5.png");
     opacity: 0.9;
     top: 105px;
     right: 20px;
@@ -527,7 +610,7 @@
   .square-7 {
     height: 200px;
     width: 200px;
-    background-image: url($asset-base-path + "/img/square5.png");
+    background-image: url("../" +$asset-base-path + "/img/square5.png");
     left: -100px;
     top: 100px;
     opacity: 0.4;
@@ -536,7 +619,7 @@
   .square-8 {
     height: 100px;
     width: 100px;
-    background-image: url($asset-base-path + "/img/square1.png");
+    background-image: url("../" +$asset-base-path + "/img/square1.png");
     left: 300px;
     top: 400px;
     opacity: 0.4;
@@ -547,7 +630,7 @@
 .landing-page,
 .profile-page,
 .register-page {
-  background-image: url($asset-base-path + "/img/dots.png");
+  background-image: url("../" +$asset-base-path + "/img/dots.png");
   background-size: contain;
 }
 
@@ -556,6 +639,7 @@
     .path {
       left: 10% !important;
     }
+
     .path2 {
       left: 20% !important;
     }
@@ -572,11 +656,13 @@
   }
 
   .section:nth-of-type(2) {
+
     .path,
     .path2 {
       left: 0 !important;
     }
   }
+
   .section-coins {
     margin-top: 0 !important;
   }
@@ -585,6 +671,7 @@
 @include media-breakpoint-down(xs) {
   .card-login {
     margin-top: 100px;
+
     img {
       width: 350px;
     }

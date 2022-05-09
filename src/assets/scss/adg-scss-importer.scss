@@ -1,0 +1,95 @@
+$asset-base-path: '../../../../assets' !default;
+
+// Core
+
+@import "adg-scss/objects/functions";
+@import "~bootstrap/scss/functions";
+
+@import "adg-scss/objects/variables";
+@import "~bootstrap/scss/variables";
+
+@import "adg-scss/objects/mixins";
+@import "~bootstrap/scss/mixins";
+
+// Bootstrap components
+
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/jumbotron";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/print";
+
+// objects components
+
+@import "adg-scss/objects/alerts";
+@import "adg-scss/objects/buttons";
+@import "adg-scss/objects/dropdown";
+@import "adg-scss/objects/footer";
+@import "adg-scss/objects/forms";
+@import "adg-scss/objects/images";
+@import "adg-scss/objects/modal";
+@import "adg-scss/objects/navbar";
+@import "adg-scss/objects/type";
+@import "adg-scss/objects/icons";
+@import "adg-scss/objects/tables";
+@import "adg-scss/objects/checkboxes-radio";
+@import "adg-scss/objects/fixed-plugin";
+@import "adg-scss/objects/pagination";
+@import "adg-scss/objects/misc";
+@import "adg-scss/objects/rtl";
+@import "adg-scss/objects/input-group";
+@import "adg-scss/objects/progress";
+@import "adg-scss/objects/badge";
+@import "adg-scss/objects/pills";
+@import "adg-scss/objects/tabs";
+@import "adg-scss/objects/info-areas";
+
+// Vendor / Plugins
+
+@import "adg-scss/objects/vendor/plugin-perfect-scrollbar";
+@import "adg-scss/objects/vendor/plugin-animate-bootstrap-notify";
+@import "adg-scss/objects/vendor/plugin-bootstrap-switch";
+@import "adg-scss/objects/vendor/plugin-datetimepicker";
+
+// Cards
+
+@import "adg-scss/objects/card";
+@import "adg-scss/objects/cards/card-chart";
+@import "adg-scss/objects/cards/card-map";
+@import "adg-scss/objects/cards/card-user";
+@import "adg-scss/objects/cards/card-task";
+@import "adg-scss/objects/cards/card-plain";
+@import "adg-scss/objects/cards/card-register";
+@import "adg-scss/objects/cards/card-stats";
+@import "adg-scss/objects/cards/card-chart";
+
+// React Differences
+
+@import "adg-scss/react-changed/react-had-changed.scss";
