@@ -7,7 +7,7 @@ import API from 'utils/adminApi';
 let tmpConfirmData = [
     {
         "accountingDate": "2022/02/23",
-        "documentNumber": "A1234",
+        "documentNumber": "A12341",
         "dayVouchers": "2022/02/23",
         "someVills": "dA0092",
         "supplier": "Hoa Nhua Sai gon",
@@ -27,7 +27,7 @@ let tmpConfirmData = [
     },
     {
         "accountingDate": "2022/02/23",
-        "documentNumber": "A88888",
+        "documentNumber": "A888882",
         "dayVouchers": "2022/02/23",
         "someVills": "dA0092",
         "supplier": "Hoa Nhua Sai gon",
@@ -47,7 +47,7 @@ let tmpConfirmData = [
     },
     {
         "accountingDate": "2022/02/23",
-        "documentNumber": "A9999",
+        "documentNumber": "A99993",
         "dayVouchers": "2022/02/23",
         "someVills": "dA0092",
         "supplier": "Hoa Nhua Sai gon",
@@ -67,7 +67,7 @@ let tmpConfirmData = [
     },
     {
         "accountingDate": "2022/02/23",
-        "documentNumber": "A0000",
+        "documentNumber": "A00004",
         "dayVouchers": "2022/02/23",
         "someVills": "dA0092",
         "supplier": "Hoa Nhua Sai gon",
@@ -138,7 +138,7 @@ const DataView = ({ originValue, onChange }) => {
 const BillTab = ({ isVisible = true, data, dataModified }) => {
 
     return (
-        <Table className={classNames({ "d-none": isVisible })}>
+        <Table className={classNames({ "d-none": !isVisible })}>
             <thead>
                 <tr>
                     <th>Hạng mục</th>
