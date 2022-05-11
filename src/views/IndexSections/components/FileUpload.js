@@ -5,6 +5,8 @@ import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table } from '
 import API from 'utils/adminApi';
 
 let tmpConfirmData = [
+
+
     {
         "accountingDate": "2022/02/23",
         "documentNumber": "A12341",
@@ -24,68 +26,84 @@ let tmpConfirmData = [
         "preCustomsFee": "312312.4",
         "importTax": "3123",
         "specialExciseTax": "2338.2232.21",
-    },
-    {
-        "accountingDate": "2022/02/23",
-        "documentNumber": "A888882",
-        "dayVouchers": "2022/02/23",
-        "someVills": "dA0092",
-        "supplier": "Hoa Nhua Sai gon",
-        "explain": "HNSG mua nhu ABS 0012 ",
-        "totalAmountOfGoods": "978787878787",
-        "discount": "5455",
-        "vatAmount": "2224",
-        "totalPayment": "8999988",
-        "purchaseCosts": "76767867",
-        "inventoryValue": "34234",
-        "receiveInvoice": "Nhận hóa đơn",
-        "isThePurchaseCost": "X",
-        "typeOfDocument": "CSK",
-        "preCustomsFee": "312312.4",
-        "importTax": "3123",
-        "specialExciseTax": "2338.2232.21",
-    },
-    {
-        "accountingDate": "2022/02/23",
-        "documentNumber": "A99993",
-        "dayVouchers": "2022/02/23",
-        "someVills": "dA0092",
-        "supplier": "Hoa Nhua Sai gon",
-        "explain": "HNSG mua nhu ABS 0012 ",
-        "totalAmountOfGoods": "978787878787",
-        "discount": "5455",
-        "vatAmount": "2224",
-        "totalPayment": "8999988",
-        "purchaseCosts": "76767867",
-        "inventoryValue": "34234",
-        "receiveInvoice": "Nhận hóa đơn",
-        "isThePurchaseCost": "X",
-        "typeOfDocument": "CSK",
-        "preCustomsFee": "312312.4",
-        "importTax": "3123",
-        "specialExciseTax": "2338.2232.21",
-    },
-    {
-        "accountingDate": "2022/02/23",
-        "documentNumber": "A00004",
-        "dayVouchers": "2022/02/23",
-        "someVills": "dA0092",
-        "supplier": "Hoa Nhua Sai gon",
-        "explain": "HNSG mua nhu ABS 0012 ",
-        "totalAmountOfGoods": "978787878787",
-        "discount": "5455",
-        "vatAmount": "2224",
-        "totalPayment": "8999988",
-        "purchaseCosts": "76767867",
-        "inventoryValue": "34234",
-        "receiveInvoice": "Nhận hóa đơn",
-        "isThePurchaseCost": "X",
-        "typeOfDocument": "CSK",
-        "preCustomsFee": "312312.4",
-        "importTax": "3123",
-        "specialExciseTax": "2338.2232.21",
     }
 ]
+
+let demoData = {
+    pnk: [
+        {
+            "A": "1",
+            "B": "Hạt nhựa HDPE HD7000F",
+            "C": "HDPE-TH 7000F",
+            "D": "Kg",
+            "1": "33550",
+            "2": "",
+            "3": "32410000",
+            "4": "1087355500"
+        }, {
+            "A": "3",
+            "B": "Hạt nhựa HDPE HD7000F",
+            "C": "HDPE-TH 7000F",
+            "D": "Kg",
+            "1": "33550",
+            "2": "",
+            "3": "32410000",
+            "4": "1087355500"
+        }, {
+            "A": "2",
+            "B": "Hạt nhựa HDPE HD7000F",
+            "C": "HDPE-TH 7000F",
+            "D": "Kg",
+            "1": "33550",
+            "2": "",
+            "3": "32410000",
+            "4": "1087355500"
+        }
+    ],
+    hd: [
+
+        {
+            "accountingDate": "2022/02/23",
+            "documentNumber": "A12341",
+            "dayVouchers": "2022/02/23",
+            "someVills": "dA0092",
+            "supplier": "Hoa Nhua Sai gon",
+            "explain": "HNSG mua nhu ABS 0012 ",
+            "totalAmountOfGoods": "978787878787",
+            "discount": "5455",
+            "vatAmount": "2224",
+            "totalPayment": "8999988",
+            "purchaseCosts": "76767867",
+            "inventoryValue": "34234",
+            "receiveInvoice": "Nhận hóa đơn",
+            "isThePurchaseCost": "X",
+            "typeOfDocument": "CSK",
+            "preCustomsFee": "312312.4",
+            "importTax": "3123",
+            "specialExciseTax": "2338.2232.21",
+        },
+        {
+            "accountingDate": "2022/02/23",
+            "documentNumber": "A12341",
+            "dayVouchers": "2022/02/23",
+            "someVills": "dA0092",
+            "supplier": "Hoa Nhua Sai gon",
+            "explain": "HNSG mua nhu ABS 0012 ",
+            "totalAmountOfGoods": "978787878787",
+            "discount": "5455",
+            "vatAmount": "2224",
+            "totalPayment": "8999988",
+            "purchaseCosts": "76767867",
+            "inventoryValue": "34234",
+            "receiveInvoice": "Nhận hóa đơn",
+            "isThePurchaseCost": "X",
+            "typeOfDocument": "CSK",
+            "preCustomsFee": "312312.4",
+            "importTax": "3123",
+            "specialExciseTax": "2338.2232.21",
+        }
+    ]
+}
 const DataView = ({ originValue, onChange }) => {
     const [changeMode, setChangeMode] = useState(false);
     const [val, setVal] = useState(originValue);
@@ -246,6 +264,11 @@ const BillTab = ({ isVisible = true, data, dataModified }) => {
 
 const BillTabGroup = ({ orginData = [], dataModified = [], onModifyData = () => { } }) => {
     const [billIndexSelected, setBillIndex] = useState(0);
+    const removeInvoice = (index) => {
+        alert(index);
+        // orginData.splice(index, 1);
+        // setFile([...file]);
+    }
     return (
         <div className='confirm-table'>
             <div className='d-flex align-items-end tabs'>
@@ -254,6 +277,9 @@ const BillTabGroup = ({ orginData = [], dataModified = [], onModifyData = () => 
                         className={classNames("tab", { tabActive: billIndexSelected === index })}
                         onClick={() => setBillIndex(index)}>
                         Hóa đơn {index + 1}
+                        <button onClick={() => removeInvoice(index)} className='btn-remove-file p-0 mx-1 btn-icon btn-default btn-round'>
+                            <i className="tim-icons icon-simple-remove"></i>
+                        </button>
                     </div>
                 ))}
             </div>
@@ -288,6 +314,7 @@ const FileUpload = ({ onSuccess }) => {
         file.splice(index, 1);
         setFile([...file]);
     }
+
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -335,7 +362,7 @@ const FileUpload = ({ onSuccess }) => {
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => hadOpenConfirm(false)}>
                         <i className="tim-icons icon-simple-remove"></i>
                     </button>
-                    <h5 className="modal-title">Xác nhận lại</h5>
+                    <h5 className="modal-title">Vui lòng xác nhận lại thông tin</h5>
                 </div>
                 <ModalBody>
                     <BillTabGroup orginData={tmpConfirmData} dataModified={editConfirm} onModifyData={setEditConfirm} />
