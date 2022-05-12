@@ -1,33 +1,8 @@
 import classNames from 'classnames';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
 
 import API from 'utils/adminApi';
-
-let tmpConfirmData = [
-
-
-    {
-        "accountingDate": "2022/02/23",
-        "documentNumber": "A12341",
-        "dayVouchers": "2022/02/23",
-        "someVills": "dA0092",
-        "supplier": "Hoa Nhua Sai gon",
-        "explain": "HNSG mua nhu ABS 0012 ",
-        "totalAmountOfGoods": "978787878787",
-        "discount": "5455",
-        "vatAmount": "2224",
-        "totalPayment": "8999988",
-        "purchaseCosts": "76767867",
-        "inventoryValue": "34234",
-        "receiveInvoice": "Nhận hóa đơn",
-        "isThePurchaseCost": "X",
-        "typeOfDocument": "CSK",
-        "preCustomsFee": "312312.4",
-        "importTax": "3123",
-        "specialExciseTax": "2338.2232.21",
-    }
-]
 
 let demoData = {
     pnk: [
@@ -39,7 +14,8 @@ let demoData = {
             "1": "33550",
             "2": "",
             "3": "32410000",
-            "4": "1087355500"
+            "4": "1087355500",
+            type: "PNK",
         }, {
             "A": "3",
             "B": "Hạt nhựa HDPE HD7000F",
@@ -48,7 +24,8 @@ let demoData = {
             "1": "33550",
             "2": "",
             "3": "32410000",
-            "4": "1087355500"
+            "4": "1087355500",
+            type: "PNK",
         }, {
             "A": "2",
             "B": "Hạt nhựa HDPE HD7000F",
@@ -57,7 +34,8 @@ let demoData = {
             "1": "33550",
             "2": "",
             "3": "32410000",
-            "4": "1087355500"
+            "4": "1087355500",
+            type: "PNK",
         }
     ],
     hd: [
@@ -81,6 +59,7 @@ let demoData = {
             "preCustomsFee": "312312.4",
             "importTax": "3123",
             "specialExciseTax": "2338.2232.21",
+            type: "HD",
         },
         {
             "accountingDate": "2022/02/23",
@@ -101,6 +80,7 @@ let demoData = {
             "preCustomsFee": "312312.4",
             "importTax": "3123",
             "specialExciseTax": "2338.2232.21",
+            type: "HD",
         }
     ]
 }
@@ -152,6 +132,63 @@ const DataView = ({ originValue, onChange }) => {
 
 }
 
+const UnknowTab = ({ isVisible = true, data }) => {
+
+    return (
+        <Table className={classNames({ "d-none": !isVisible })}>
+            <thead>
+                <tr>
+                    <th>Hạng mục</th>
+                    <th className="text-center">Thông tin</th>
+                    <th>Hạng mục</th>
+                    <th className="text-center">Thông tin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td className='font-weight-bold'>STT</td>
+                    <td className="text-center">
+                        <DataView originValue={data["A"]} />
+                    </td>
+                    <td className='font-weight-bold'>Tên hàng hóa</td>
+                    <td className="text-center">
+                        <DataView originValue={data["B"]} />
+                    </td>
+                </tr>
+                <tr>
+                    <td className='font-weight-bold'>Mã số</td>
+                    <td className="text-center">
+                        <DataView originValue={data["C"]} />
+                    </td>
+                    <td className='font-weight-bold'>Đơn vị</td>
+                    <td className="text-center">
+                        <DataView originValue={data["D"]} />
+                    </td>
+                </tr>
+                <tr>
+                    <td className='font-weight-bold'>Số lượng theo chứng từ</td>
+                    <td className="text-center">
+                        <DataView originValue={data["1"]} />
+                    </td>
+                    <td className='font-weight-bold'>Số lượng thực nhập </td>
+                    <td className="text-center">
+                        <DataView originValue={data["2"]} />
+                    </td>
+                </tr>
+                <tr>
+                    <td className='font-weight-bold'>Đơn giá </td>
+                    <td className="text-center"
+                    ><DataView originValue={data["3"]} />
+                    </td>
+                    <td className='font-weight-bold'>Thành tiền</td>
+                    <td className="text-center">
+                        <DataView originValue={data["4"]} />
+                    </td>
+                </tr>
+            </tbody>
+        </Table>
+    )
+}
 
 const BillTab = ({ isVisible = true, data, dataModified }) => {
 
@@ -169,114 +206,138 @@ const BillTab = ({ isVisible = true, data, dataModified }) => {
                 <tr>
                     <td className='font-weight-bold'>Ngày hạch toán</td>
                     <td className="text-center">
-                        <DataView originValue={data.accountingDate} valueChanged={dataModified.accountingDate} />
+                        <DataView originValue={data.accountingDate} />
                     </td>
                     <td className='font-weight-bold'>Số chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.documentNumber} valueChanged={dataModified.documentNumber} />
+                        <DataView originValue={data.documentNumber} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Ngày chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.dayVouchers} valueChanged={dataModified.dayVouchers} />
+                        <DataView originValue={data.dayVouchers} />
                     </td>
                     <td className='font-weight-bold'>Số hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.someVills} valueChanged={dataModified.someVills} />
+                        <DataView originValue={data.someVills} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Nhà cung cấp</td>
                     <td className="text-center">
-                        <DataView originValue={data.supplier} valueChanged={dataModified.supplier} />
+                        <DataView originValue={data.supplier} />
                     </td>
                     <td className='font-weight-bold'>Diễn giải</td>
                     <td className="text-center">
-                        <DataView originValue={data.explain} valueChanged={dataModified.explain} />
+                        <DataView originValue={data.explain} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tổng tiền hàng</td>
                     <td className="text-center"
-                    ><DataView originValue={data.totalAmountOfGoods} valueChanged={dataModified.totalAmountOfGoods} />
+                    ><DataView originValue={data.totalAmountOfGoods} />
                     </td>
                     <td className='font-weight-bold'>Tiền chiết khấu</td>
                     <td className="text-center">
-                        <DataView originValue={data.discount} valueChanged={dataModified.discount} />
+                        <DataView originValue={data.discount} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tiền thuế GTGT</td>
                     <td className="text-center">
-                        <DataView originValue={data.vatAmount} valueChanged={dataModified.vatAmount} />
+                        <DataView originValue={data.vatAmount} />
                     </td>
                     <td className='font-weight-bold'>Tổng tiền thanh toán</td>
                     <td className="text-center">
-                        <DataView originValue={data.totalPayment} valueChanged={dataModified.totalPayment} />
+                        <DataView originValue={data.totalPayment} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Chi phí mua hàng</td>
                     <td className="text-center">
-                        <DataView originValue={data.purchaseCosts} valueChanged={dataModified.purchaseCosts} />
+                        <DataView originValue={data.purchaseCosts} />
                     </td>
                     <td className='font-weight-bold'>Giá trị nhập kho</td>
                     <td className="text-center">
-                        <DataView originValue={data.inventoryValue} valueChanged={dataModified.inventoryValue} />
+                        <DataView originValue={data.inventoryValue} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Nhận hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.receiveInvoice} valueChanged={dataModified.receiveInvoice} />
+                        <DataView originValue={data.receiveInvoice} />
                     </td>
                     <td className='font-weight-bold'>Là chi phí mua hàng</td>
                     <td className="text-center">
-                        <DataView originValue={data.isThePurchaseCost} valueChanged={dataModified.isThePurchaseCost} />
+                        <DataView originValue={data.isThePurchaseCost} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Loại chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.typeOfDocument} valueChanged={dataModified.typeOfDocument} />
+                        <DataView originValue={data.typeOfDocument} />
                     </td>
                     <td className='font-weight-bold'>Phí trước hải quan</td>
                     <td className="text-center">
-                        <DataView originValue={data.preCustomsFee} valueChanged={dataModified.preCustomsFee} />
+                        <DataView originValue={data.preCustomsFee} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tiền thuế NK</td>
                     <td className="text-center">
-                        <DataView originValue={data.importTax} valueChanged={dataModified.importTax} />
+                        <DataView originValue={data.importTax} />
                     </td>
                     <td className='font-weight-bold'>Tiền thuế TTĐB</td>
                     <td className="text-center">
-                        <DataView originValue={data.specialExciseTax} valueChanged={dataModified.specialExciseTax} />
+                        <DataView originValue={data.specialExciseTax} />
                     </td>
                 </tr>
-
             </tbody>
         </Table>
     )
 }
 
-const BillTabGroup = ({ orginData = [], dataModified = [], onModifyData = () => { } }) => {
-    const [billIndexSelected, setBillIndex] = useState(0);
+const BillTabGroup = ({ orginData = {}, dataModified = [], onModifyData = () => { } }) => {
+
+    const setIndexForBill = () => {
+        let arr = [...orginData.pnk, ...orginData.hd];
+        let indexBill = 0;
+        let indexUnknowBill = 0;
+        arr = arr.map((val, index) => {
+            if (val.type === "HD") {
+                indexBill++;
+                return ({
+                    ...val,
+                    index: indexBill
+                });
+            } else {
+                indexUnknowBill++;
+                return ({
+                    ...val,
+                    index: indexUnknowBill
+                });
+            }
+        });
+        return arr;
+    }
+
+    const [billIndexSelected, setBillSelected] = useState(0);
+    const [arrayBill, setArrayBill] = useState(setIndexForBill());
+    
     const removeInvoice = (index) => {
-        alert(index);
-        // orginData.splice(index, 1);
-        // setFile([...file]);
+        console.log(index);
+        arrayBill.splice(index, 1);
+        setArrayBill([...arrayBill]);
     }
     return (
         <div className='confirm-table'>
             <div className='d-flex align-items-end tabs'>
-                {orginData.map((_, index) => (
+                {arrayBill.map((val, index) => (
                     <div
                         className={classNames("tab", { tabActive: billIndexSelected === index })}
-                        onClick={() => setBillIndex(index)}>
-                        Hóa đơn {index + 1}
+                        onClick={() => setBillSelected(index)}>
+                        {val.type === "HD" ? "Hóa đơn" : "PNK"} {val.index}
                         <button onClick={() => removeInvoice(index)} className='btn-remove-file p-0 mx-1 btn-icon btn-default btn-round'>
                             <i className="tim-icons icon-simple-remove"></i>
                         </button>
@@ -284,9 +345,16 @@ const BillTabGroup = ({ orginData = [], dataModified = [], onModifyData = () => 
                 ))}
             </div>
             <Container className='tab-detail'>
-                {orginData.map((val, index) => (
-                    <BillTab key={index} data={val} dataModified={dataModified} isVisible={billIndexSelected === index} />
-                ))}
+                {arrayBill.map((val, index) => {
+                    if (val.type === "HD") {
+                        return (
+                            <BillTab key={index} data={val} isVisible={billIndexSelected === index} />
+                        )
+                    }
+                    return (
+                        <UnknowTab key={index} data={val} isVisible={billIndexSelected === index} />
+                    )
+                })}
             </Container>
         </div>
     )
@@ -365,7 +433,7 @@ const FileUpload = ({ onSuccess }) => {
                     <h5 className="modal-title">Vui lòng xác nhận lại thông tin</h5>
                 </div>
                 <ModalBody>
-                    <BillTabGroup orginData={tmpConfirmData} dataModified={editConfirm} onModifyData={setEditConfirm} />
+                    <BillTabGroup orginData={demoData} dataModified={editConfirm} onModifyData={setEditConfirm} />
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={() => hadOpenConfirm(false)}>
