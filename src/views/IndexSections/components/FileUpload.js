@@ -441,12 +441,13 @@ const FileUpload = ({ onSuccess }) => {
                     <div className='w-100 d-flex'>
                         <div className='select-bank btn-neutral'>
                             <select className='select-bank-content'>
-                                <option>- Chọn Ngân hàng -</option>
-                                <option>Vietcombank</option>
-
-                                <option>MB Bank</option>
-
                                 <option>BIDV</option>
+                                <option>Vietcombank</option>
+                                <option>Techcombank</option>
+                                <option>TP Bank</option>
+                                <option>ACB</option>
+
+
                             </select>
                         </div>
                         <div className='import-file btn-info'>
