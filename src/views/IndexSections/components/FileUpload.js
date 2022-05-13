@@ -41,45 +41,45 @@ let demoData = {
     hd: [
 
         {
-            "accountingDate": "2022/02/23",
-            "documentNumber": "A12341",
-            "dayVouchers": "2022/02/23",
-            "someVills": "dA0092",
-            "supplier": "Hoa Nhua Sai gon",
-            "explain": "HNSG mua nhu ABS 0012 ",
-            "totalAmountOfGoods": "978787878787",
-            "discount": "5455",
-            "vatAmount": "2224",
-            "totalPayment": "8999988",
-            "purchaseCosts": "76767867",
-            "inventoryValue": "34234",
-            "receiveInvoice": "Nhận hóa đơn",
-            "isThePurchaseCost": "X",
-            "typeOfDocument": "CSK",
-            "preCustomsFee": "312312.4",
-            "importTax": "3123",
-            "specialExciseTax": "2338.2232.21",
+            "ngayHachToan": "2022/02/23",
+            "soChungTu": "A12341",
+            "ngayChungTu": "2022/02/23",
+            "soHoaĐon": "dA0092",
+            "nhaCungCap": "Hoa Nhua Sai gon",
+            "dienGiai": "HNSG mua nhu ABS 0012 ",
+            "tongTienHang": "978787878787",
+            "tienChietKhau": "5455",
+            "tienThueGTGT": "2224",
+            "tongTienThanhToan": "8999988",
+            "chiPhiMuaHang": "76767867",
+            "giaTriNhapKho": "34234",
+            "nhanHoaĐon": "Nhận hóa đơn",
+            "laChiPhiMuaHang": "X",
+            "loaiChungTu": "CSK",
+            "phiTruocHaiQuan": "312312.4",
+            "tienThueNK": "3123",
+            "tienThueTTĐB": "2338.2232.21",
             type: "HD",
         },
         {
-            "accountingDate": "2022/02/23",
-            "documentNumber": "A12341",
-            "dayVouchers": "2022/02/23",
-            "someVills": "dA0092",
-            "supplier": "Hoa Nhua Sai gon",
-            "explain": "HNSG mua nhu ABS 0012 ",
-            "totalAmountOfGoods": "978787878787",
-            "discount": "5455",
-            "vatAmount": "2224",
-            "totalPayment": "8999988",
-            "purchaseCosts": "76767867",
-            "inventoryValue": "34234",
-            "receiveInvoice": "Nhận hóa đơn",
-            "isThePurchaseCost": "X",
-            "typeOfDocument": "CSK",
-            "preCustomsFee": "312312.4",
-            "importTax": "3123",
-            "specialExciseTax": "2338.2232.21",
+            "ngayHachToan": "2022/02/23",
+            "soChungTu": "A12341",
+            "ngayChungTu": "2022/02/23",
+            "soHoaĐon": "dA0092",
+            "nhaCungCap": "Hoa Nhua Sai gon",
+            "dienGiai": "HNSG mua nhu ABS 0012 ",
+            "tongTienHang": "978787878787",
+            "tienChietKhau": "5455",
+            "tienThueGTGT": "2224",
+            "tongTienThanhToan": "8999988",
+            "chiPhiMuaHang": "76767867",
+            "giaTriNhapKho": "34234",
+            "nhanHoaĐon": "Nhận hóa đơn",
+            "laChiPhiMuaHang": "X",
+            "loaiChungTu": "CSK",
+            "phiTruocHaiQuan": "312312.4",
+            "tienThueNK": "3123",
+            "tienThueTTĐB": "2338.2232.21",
             type: "HD",
         }
     ]
@@ -135,7 +135,7 @@ const DataView = ({ originValue, onChange }) => {
 const UnknowTab = ({ isVisible = true, data }) => {
 
     return (
-        <Table className={classNames({ "d-none": !isVisible })}>
+        <Table style={{ marginBottom: "200px" }} className={classNames({ "d-none": !isVisible })}>
             <thead>
                 <tr>
                     <th>Hạng mục</th>
@@ -144,7 +144,7 @@ const UnknowTab = ({ isVisible = true, data }) => {
                     <th className="text-center">Thông tin</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr>
                     <td className='font-weight-bold'>STT</td>
                     <td className="text-center">
@@ -186,7 +186,7 @@ const UnknowTab = ({ isVisible = true, data }) => {
                     </td>
                 </tr>
             </tbody>
-        </Table>
+        </Table >
     )
 }
 
@@ -206,91 +206,91 @@ const BillTab = ({ isVisible = true, data, dataModified }) => {
                 <tr>
                     <td className='font-weight-bold'>Ngày hạch toán</td>
                     <td className="text-center">
-                        <DataView originValue={data.accountingDate} />
+                        <DataView originValue={data.ngayHachToan} />
                     </td>
                     <td className='font-weight-bold'>Số chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.documentNumber} />
+                        <DataView originValue={data.soChungTu} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Ngày chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.dayVouchers} />
+                        <DataView originValue={data.ngayChungTu} />
                     </td>
                     <td className='font-weight-bold'>Số hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.someVills} />
+                        <DataView originValue={data.soHoaĐon} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Nhà cung cấp</td>
                     <td className="text-center">
-                        <DataView originValue={data.supplier} />
+                        <DataView originValue={data.nhaCungCap} />
                     </td>
                     <td className='font-weight-bold'>Diễn giải</td>
                     <td className="text-center">
-                        <DataView originValue={data.explain} />
+                        <DataView originValue={data.dienGiai} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tổng tiền hàng</td>
                     <td className="text-center"
-                    ><DataView originValue={data.totalAmountOfGoods} />
+                    ><DataView originValue={data.tongTienHang} />
                     </td>
                     <td className='font-weight-bold'>Tiền chiết khấu</td>
                     <td className="text-center">
-                        <DataView originValue={data.discount} />
+                        <DataView originValue={data.tienChietKhau} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tiền thuế GTGT</td>
                     <td className="text-center">
-                        <DataView originValue={data.vatAmount} />
+                        <DataView originValue={data.tienThueGTGT} />
                     </td>
                     <td className='font-weight-bold'>Tổng tiền thanh toán</td>
                     <td className="text-center">
-                        <DataView originValue={data.totalPayment} />
+                        <DataView originValue={data.tongTienThanhToan} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Chi phí mua hàng</td>
                     <td className="text-center">
-                        <DataView originValue={data.purchaseCosts} />
+                        <DataView originValue={data.chiPhiMuaHang} />
                     </td>
                     <td className='font-weight-bold'>Giá trị nhập kho</td>
                     <td className="text-center">
-                        <DataView originValue={data.inventoryValue} />
+                        <DataView originValue={data.giaTriNhapKho} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Nhận hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.receiveInvoice} />
+                        <DataView originValue={data.nhanHoaĐon} />
                     </td>
                     <td className='font-weight-bold'>Là chi phí mua hàng</td>
                     <td className="text-center">
-                        <DataView originValue={data.isThePurchaseCost} />
+                        <DataView originValue={data.laChiPhiMuaHang} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Loại chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.typeOfDocument} />
+                        <DataView originValue={data.loaiChungTu} />
                     </td>
                     <td className='font-weight-bold'>Phí trước hải quan</td>
                     <td className="text-center">
-                        <DataView originValue={data.preCustomsFee} />
+                        <DataView originValue={data.phiTruocHaiQuan} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tiền thuế NK</td>
                     <td className="text-center">
-                        <DataView originValue={data.importTax} />
+                        <DataView originValue={data.tienThueNK} />
                     </td>
                     <td className='font-weight-bold'>Tiền thuế TTĐB</td>
                     <td className="text-center">
-                        <DataView originValue={data.specialExciseTax} />
+                        <DataView originValue={data.tienThueTTĐB} />
                     </td>
                 </tr>
             </tbody>
@@ -302,6 +302,7 @@ const BillTabGroup = ({ orginData = {}, dataModified = [], onModifyData = () => 
 
     const setIndexForBill = () => {
         let arr = [...orginData.pnk, ...orginData.hd];
+        console.log(arr);
         let indexBill = 0;
         let indexUnknowBill = 0;
         arr = arr.map((val, index) => {
@@ -324,7 +325,7 @@ const BillTabGroup = ({ orginData = {}, dataModified = [], onModifyData = () => 
 
     const [billIndexSelected, setBillSelected] = useState(0);
     const [arrayBill, setArrayBill] = useState(setIndexForBill());
-    
+
     const removeInvoice = (index) => {
         console.log(index);
         arrayBill.splice(index, 1);
@@ -338,8 +339,8 @@ const BillTabGroup = ({ orginData = {}, dataModified = [], onModifyData = () => 
                         className={classNames("tab", { tabActive: billIndexSelected === index })}
                         onClick={() => setBillSelected(index)}>
                         {val.type === "HD" ? "Hóa đơn" : "PNK"} {val.index}
-                        <button onClick={() => removeInvoice(index)} className='btn-remove-file p-0 mx-1 btn-icon btn-default btn-round'>
-                            <i className="tim-icons icon-simple-remove"></i>
+                        <button onClick={() => removeInvoice(index)} className='btn-remove-file p-0 px-1 mx-1 btn-icon btn-default btn-round'>
+                            {/* <i className="tim-icons icon-simple-remove bg-white"></i> */} x
                         </button>
                     </div>
                 ))}
@@ -393,24 +394,15 @@ const FileUpload = ({ onSuccess }) => {
         try {
             hadOpenConfirm(true);
             // if (res.data.statusCode == 200) {
-            //   // console.log('load templates ', response.data.data);
-            //   // setTemplates(response.data.data);
-            //   // setSelectedTemplate(response.data.data[0]);
-            //   // let dataView = generateView(response.data.data[0]);
-            //   // setDataTempleteArr(dataView);
-            //   // // rendered
-            //   // waiting.setWait(false);
-            // } else if (res.data.statusCode == 201) {
+            //     console.log('Got response ', response.data.data);
+
 
             // } else {
-            //   alert('Cant get Cabi !')
+            //     alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
             // }
 
         } catch (err) {
-            if (err.response.status === 500) {
-                setMessage('There was a problem with the server');
-            } else {
-            }
+            alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
         }
     };
 

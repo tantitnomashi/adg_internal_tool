@@ -28,6 +28,9 @@ const adminApi = {
 	loadAdminDashboard: () => instance.get('/dashboard/info'),
 	logout: () => instance.get('/user/logout'),
 	generateExcel: (params) => instance.get('https://picsum.photos/200/300', { responseType: "blob" }),
+	exportDisbursement: (params) => instance.post('localhost:8080/internal/internation-payment/disbursement/bidv/export', params),
+	importDisbursement: (params) => instance.post('localhost:8080/internal/internation-payment/disbursement/bidv/import', params),
+
 
 
 	// // API for Cainet Model
