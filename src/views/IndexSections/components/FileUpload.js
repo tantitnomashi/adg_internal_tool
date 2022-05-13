@@ -4,92 +4,12 @@ import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table } from '
 
 import API from 'utils/adminApi';
 
-let demoData = {
-    pnk: [
-        {
-            "A": "1",
-            "B": "Hạt nhựa HDPE HD7000F",
-            "C": "HDPE-TH 7000F",
-            "D": "Kg",
-            "1": "33550",
-            "2": "",
-            "3": "32410000",
-            "4": "1087355500",
-            type: "PNK",
-        }, {
-            "A": "3",
-            "B": "Hạt nhựa HDPE HD7000F",
-            "C": "HDPE-TH 7000F",
-            "D": "Kg",
-            "1": "33550",
-            "2": "",
-            "3": "32410000",
-            "4": "1087355500",
-            type: "PNK",
-        }, {
-            "A": "2",
-            "B": "Hạt nhựa HDPE HD7000F",
-            "C": "HDPE-TH 7000F",
-            "D": "Kg",
-            "1": "33550",
-            "2": "",
-            "3": "32410000",
-            "4": "1087355500",
-            type: "PNK",
-        }
-    ],
-    hd: [
-
-        {
-            "ngayHachToan": "2022/02/23",
-            "soChungTu": "A12341",
-            "ngayChungTu": "2022/02/23",
-            "soHoaĐon": "dA0092",
-            "nhaCungCap": "Hoa Nhua Sai gon",
-            "dienGiai": "HNSG mua nhu ABS 0012 ",
-            "tongTienHang": "978787878787",
-            "tienChietKhau": "5455",
-            "tienThueGTGT": "2224",
-            "tongTienThanhToan": "8999988",
-            "chiPhiMuaHang": "76767867",
-            "giaTriNhapKho": "34234",
-            "nhanHoaĐon": "Nhận hóa đơn",
-            "laChiPhiMuaHang": "X",
-            "loaiChungTu": "CSK",
-            "phiTruocHaiQuan": "312312.4",
-            "tienThueNK": "3123",
-            "tienThueTTĐB": "2338.2232.21",
-            type: "HD",
-        },
-        {
-            "ngayHachToan": "2022/02/23",
-            "soChungTu": "A12341",
-            "ngayChungTu": "2022/02/23",
-            "soHoaĐon": "dA0092",
-            "nhaCungCap": "Hoa Nhua Sai gon",
-            "dienGiai": "HNSG mua nhu ABS 0012 ",
-            "tongTienHang": "978787878787",
-            "tienChietKhau": "5455",
-            "tienThueGTGT": "2224",
-            "tongTienThanhToan": "8999988",
-            "chiPhiMuaHang": "76767867",
-            "giaTriNhapKho": "34234",
-            "nhanHoaĐon": "Nhận hóa đơn",
-            "laChiPhiMuaHang": "X",
-            "loaiChungTu": "CSK",
-            "phiTruocHaiQuan": "312312.4",
-            "tienThueNK": "3123",
-            "tienThueTTĐB": "2338.2232.21",
-            type: "HD",
-        }
-    ]
-}
 const DataView = ({ originValue, onChange }) => {
     const [changeMode, setChangeMode] = useState(false);
     const [val, setVal] = useState(originValue);
 
     const onChangeValue = () => {
-        // onChange();
+        onChange(val);
     }
 
     if (changeMode) {
@@ -114,9 +34,7 @@ const DataView = ({ originValue, onChange }) => {
             <div className="d-flex bill-value">
                 <div className="flex-fill">
                     {originValue !== val ?
-                        <>
-                            <span className="text-info">{val}</span>
-                        </> :
+                        <span className="text-info">{val}</span> :
                         originValue
                     }
                 </div>
@@ -185,12 +103,27 @@ const UnknowTab = ({ isVisible = true, data }) => {
                         <DataView originValue={data["4"]} />
                     </td>
                 </tr>
+                <tr>
+                    <td className='font-weight-bold'>Nhà cung cấp</td>
+                    <td className="text-center"
+                    ><DataView originValue={data["nhaCungCap"]} />
+                    </td>
+                    <td className='font-weight-bold'>Số hóa đơn</td>
+                    <td className="text-center">
+                        <DataView originValue={data["soHoaĐon"]} />
+                    </td>
+                </tr>
             </tbody>
         </Table >
     )
 }
 
-const BillTab = ({ isVisible = true, data, dataModified }) => {
+const BillTab = ({ isVisible = true, data, onChangeData = () => { } }) => {
+
+    const onChange = (val, name) => {
+        data[name] = val;
+        onChangeData(data);
+    }
 
     return (
         <Table className={classNames({ "d-none": !isVisible })}>
@@ -206,91 +139,127 @@ const BillTab = ({ isVisible = true, data, dataModified }) => {
                 <tr>
                     <td className='font-weight-bold'>Ngày hạch toán</td>
                     <td className="text-center">
-                        <DataView originValue={data.ngayHachToan} />
+                        <DataView originValue={data.ngayHachToan}
+                            onChange={(val) => onChange(val, "ngayHachToan")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Số chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.soChungTu} />
+                        <DataView originValue={data.soChungTu}
+                            onChange={(val) => onChange(val, "soChungTu")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Ngày chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.ngayChungTu} />
+                        <DataView originValue={data.ngayChungTu}
+                            onChange={(val) => onChange(val, "ngayChungTu")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Số hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.soHoaĐon} />
+                        <DataView originValue={data.soHoaĐon}
+                            onChange={(val) => onChange(val, "soHoaĐon")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Nhà cung cấp</td>
                     <td className="text-center">
-                        <DataView originValue={data.nhaCungCap} />
+                        <DataView originValue={data.nhaCungCap}
+                            onChange={(val) => onChange(val, "nhaCungCap")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Diễn giải</td>
                     <td className="text-center">
-                        <DataView originValue={data.dienGiai} />
+                        <DataView originValue={data.dienGiai}
+                            onChange={(val) => onChange(val, "dienGiai")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tổng tiền hàng</td>
                     <td className="text-center"
-                    ><DataView originValue={data.tongTienHang} />
+                    ><DataView originValue={data.tongTienHang}
+                        onChange={(val) => onChange(val, "tongTienHang")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Tiền chiết khấu</td>
                     <td className="text-center">
-                        <DataView originValue={data.tienChietKhau} />
+                        <DataView originValue={data.tienChietKhau}
+                            onChange={(val) => onChange(val, "tienChietKhau")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tiền thuế GTGT</td>
                     <td className="text-center">
-                        <DataView originValue={data.tienThueGTGT} />
+                        <DataView originValue={data.tienThueGTGT}
+                            onChange={(val) => onChange(val, "tienThueGTGT")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Tổng tiền thanh toán</td>
                     <td className="text-center">
-                        <DataView originValue={data.tongTienThanhToan} />
+                        <DataView originValue={data.tongTienThanhToan}
+                            onChange={(val) => onChange(val, "tongTienThanhToan")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Chi phí mua hàng</td>
                     <td className="text-center">
-                        <DataView originValue={data.chiPhiMuaHang} />
+                        <DataView originValue={data.chiPhiMuaHang}
+                            onChange={(val) => onChange(val, "chiPhiMuaHang")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Giá trị nhập kho</td>
                     <td className="text-center">
-                        <DataView originValue={data.giaTriNhapKho} />
+                        <DataView originValue={data.giaTriNhapKho}
+                            onChange={(val) => onChange(val, "giaTriNhapKho")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Nhận hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.nhanHoaĐon} />
+                        <DataView originValue={data.nhanHoaĐon}
+                            onChange={(val) => onChange(val, "nhanHoaĐon")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Là chi phí mua hàng</td>
                     <td className="text-center">
-                        <DataView originValue={data.laChiPhiMuaHang} />
+                        <DataView originValue={data.laChiPhiMuaHang === "false" ? "Không phải" : "Đúng"}
+                            onChange={(val) => onChange(val, "laChiPhiMuaHang")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Loại chứng từ</td>
                     <td className="text-center">
-                        <DataView originValue={data.loaiChungTu} />
+                        <DataView originValue={data.loaiChungTu}
+                            onChange={(val) => onChange(val, "loaiChungTu")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Phí trước hải quan</td>
                     <td className="text-center">
-                        <DataView originValue={data.phiTruocHaiQuan} />
+                        <DataView originValue={data.phiTruocHaiQuan}
+                            onChange={(val) => onChange(val, "phiTruocHaiQuan")}
+                        />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Tiền thuế NK</td>
                     <td className="text-center">
-                        <DataView originValue={data.tienThueNK} />
+                        <DataView originValue={data.tienThueNK}
+                            onChange={(val) => onChange(val, "tienThueNK")}
+                        />
                     </td>
                     <td className='font-weight-bold'>Tiền thuế TTĐB</td>
                     <td className="text-center">
-                        <DataView originValue={data.tienThueTTĐB} />
+                        <DataView originValue={data.tienThueTTĐB}
+                            onChange={(val) => onChange(val, "tienThueTTĐB")}
+                        />
                     </td>
                 </tr>
             </tbody>
@@ -298,11 +267,62 @@ const BillTab = ({ isVisible = true, data, dataModified }) => {
     )
 }
 
-const BillTabGroup = ({ orginData = {}, dataModified = [], onModifyData = () => { } }) => {
+const BillTabGroup = ({ originData = [], onModifyData = () => { } }) => {
 
-    const setIndexForBill = () => {
-        let arr = [...orginData.pnk, ...orginData.hd];
-        console.log(arr);
+    const [billIndexSelected, setBillSelected] = useState(0);
+
+    const removeInvoice = (index) => {
+        originData.splice(index, 1);
+        onModifyData([...originData]);
+    }
+    return (
+        <div className='confirm-table'>
+            <div className='d-flex align-items-end tabs'>
+                {originData.map((val, index) => (
+                    <button key={val.index}
+                        className={classNames("btn-link tab", { tabActive: billIndexSelected === index })}
+                        onClick={() => setBillSelected(index)}>
+                        <div>
+                            {val.type === "HD" ? "Hóa đơn" : "PNK"} {val.index}
+                        </div>
+                        <button
+                            className='btn-remove-file btn-default p-0 ml-2 rounded-circle'
+                            onClick={() => removeInvoice(index)} >
+                            <i className="tim-icons icon-simple-remove" />
+                        </button>
+                    </button>
+                ))}
+            </div>
+            <Container className='tab-detail'>
+                {originData.map((val, index) => {
+                    if (val.type === "HD") {
+                        return (
+                            <BillTab key={index} data={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
+                                originData[index] = data;
+                                onModifyData([...originData]);
+                            }} />
+                        )
+                    }
+                    return (
+                        <UnknowTab key={index} data={val} isVisible={billIndexSelected === index} />
+                    )
+                })}
+            </Container>
+        </div>
+    )
+}
+
+const FileUpload = ({ onSuccess }) => {
+
+    const setIndexForBill = (confirmData = { pnk: [], hd: [] }) => {
+        confirmData.pnk.map((val, index, arr) => {
+            arr[index].type = "PNK";
+        });
+        confirmData.hd.map((val, index, arr) => {
+            arr[index].type = "HD";
+        });
+
+        let arr = [...confirmData.pnk, ...confirmData.hd];
         let indexBill = 0;
         let indexUnknowBill = 0;
         arr = arr.map((val, index) => {
@@ -323,51 +343,12 @@ const BillTabGroup = ({ orginData = {}, dataModified = [], onModifyData = () => 
         return arr;
     }
 
-    const [billIndexSelected, setBillSelected] = useState(0);
+    const [confirmData, setConfirmData] = useState([]);
     const [arrayBill, setArrayBill] = useState(setIndexForBill());
-
-    const removeInvoice = (index) => {
-        console.log(index);
-        arrayBill.splice(index, 1);
-        setArrayBill([...arrayBill]);
-    }
-    return (
-        <div className='confirm-table'>
-            <div className='d-flex align-items-end tabs'>
-                {arrayBill.map((val, index) => (
-                    <div
-                        className={classNames("tab", { tabActive: billIndexSelected === index })}
-                        onClick={() => setBillSelected(index)}>
-                        {val.type === "HD" ? "Hóa đơn" : "PNK"} {val.index}
-                        <button onClick={() => removeInvoice(index)} className='btn-remove-file p-0 px-1 mx-1 btn-icon btn-default btn-round'>
-                            {/* <i className="tim-icons icon-simple-remove bg-white"></i> */} x
-                        </button>
-                    </div>
-                ))}
-            </div>
-            <Container className='tab-detail'>
-                {arrayBill.map((val, index) => {
-                    if (val.type === "HD") {
-                        return (
-                            <BillTab key={index} data={val} isVisible={billIndexSelected === index} />
-                        )
-                    }
-                    return (
-                        <UnknowTab key={index} data={val} isVisible={billIndexSelected === index} />
-                    )
-                })}
-            </Container>
-        </div>
-    )
-}
-
-
-
-const FileUpload = ({ onSuccess }) => {
-    const [editConfirm, setEditConfirm] = useState([]);
     const [file, setFile] = useState([]);
     const [message, setMessage] = useState('');
     const [isOpenConfirm, hadOpenConfirm] = useState(false);
+
 
     const onChange = e => {
         let newFiles = [];
@@ -389,29 +370,38 @@ const FileUpload = ({ onSuccess }) => {
         e.preventDefault();
         const formData = new FormData();
         // formData.append('bank', "Vietcombank");
-        // formData.append('file', file);
+        formData.append('file', file[0]);
 
-        try {
+        API.importDisbursement(formData).then(({ data }) => {
+            setArrayBill(setIndexForBill(data.data));
             hadOpenConfirm(true);
-            // if (res.data.statusCode == 200) {
-            //     console.log('Got response ', response.data.data);
-
-
-            // } else {
-            //     alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
-            // }
-
-        } catch (err) {
+        }).catch((err) => {
             alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
-        }
+        })
     };
 
 
     const onConfirmData = () => {
-        API.generateExcel().then((res) => {
-            hadOpenConfirm(false);
-            let xlsx = URL.createObjectURL(new Blob([res.data], { type: "image/jpg" }));
+        const body = {
+            pnk: [],
+            hd: []
+        }
+        arrayBill.map(val => {
+            delete val.index;
+            if (val.type === "HD") {
+                delete val.type;
+                body.hd.push(val);
+            } else {
+                delete val.type;
+                body.pnk.push(val);
+            }
+        })
+
+        API.exportDisbursement({ data: body }).then((res) => {
+            let xlsx = URL.createObjectURL(new Blob([res.data], { type: "application/zip" }));
             onSuccess(xlsx);
+        }).catch(err => {
+            alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
         });
     }
 
@@ -425,7 +415,7 @@ const FileUpload = ({ onSuccess }) => {
                     <h5 className="modal-title">Vui lòng xác nhận lại thông tin</h5>
                 </div>
                 <ModalBody>
-                    <BillTabGroup orginData={demoData} dataModified={editConfirm} onModifyData={setEditConfirm} />
+                    <BillTabGroup originData={arrayBill} onModifyData={setArrayBill} />
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={() => hadOpenConfirm(false)}>

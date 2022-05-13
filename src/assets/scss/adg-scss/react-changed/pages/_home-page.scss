@@ -118,11 +118,34 @@
 }
 
 .confirm-table {
+  .btn-remove-file {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    width: 18px;
+    box-shadow: none;
+    border: none;
+    vertical-align: middle;
+
+    .icon-simple-remove {
+      color: #FFF;
+      transform: scale(0.7);
+    }
+  }
+
   .tabs {
-    height: 50px;
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 70px;
 
     .tab {
       position: relative;
+      display: flex;
+      min-width: 100px;
+      align-items: center;
       margin-right: 2px;
       color: $default;
       padding: auto;

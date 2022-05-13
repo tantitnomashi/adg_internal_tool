@@ -36,7 +36,7 @@ export default function Index() {
               </h2>
               {downloadable ?
                 <a className="btn btn-success py-4 " href={data}
-                  download>Tải về</a>
+                  download="test.zip">Tải về</a>
                 :
                 <FileUpload onSuccess={onUploadSuccess} />
               }

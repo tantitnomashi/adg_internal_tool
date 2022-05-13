@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 
-const newRoute = "https://may-ao.southafricanorth.cloudapp.azure.com"
+const newRoute = "http://ec2-52-221-214-150.ap-southeast-1.compute.amazonaws.com:8082/"
 const instance = axios.create({
 	baseURL: `${newRoute}`,
 	timeout: 5000,
 	headers: {
-		authorization: "Bearer " + localStorage.getItem('admin-token')
+		// authorization: "Bearer " + localStorage.getItem('admin-token')
 	}
 
 
@@ -28,8 +28,16 @@ const adminApi = {
 	loadAdminDashboard: () => instance.get('/dashboard/info'),
 	logout: () => instance.get('/user/logout'),
 	generateExcel: (params) => instance.get('https://picsum.photos/200/300', { responseType: "blob" }),
-	exportDisbursement: (params) => instance.post('localhost:8080/internal/internation-payment/disbursement/bidv/export', params),
-	importDisbursement: (params) => instance.post('localhost:8080/internal/internation-payment/disbursement/bidv/import', params),
+	exportDisbursement: (params) => instance.post('api/internal/internation-payment/disbursement/bidv/export', params, {
+		responseType: "blob"
+	}),
+	importDisbursement: (params) => instance.post('api/internal/internation-payment/disbursement/bidv/import', params, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+			"X-Requested-With": "*"
+		},
+		responseType: "json",
+	}),
 
 
 
