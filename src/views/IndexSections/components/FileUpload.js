@@ -275,22 +275,28 @@ const BillTabGroup = ({ originData = [], onModifyData = () => { } }) => {
         originData.splice(index, 1);
         onModifyData([...originData]);
     }
+
+    const get3LastNumber = (number = "0000") => {
+        return number.substring(number.length - 3, number.length);
+    }
+
+
     return (
         <div className='confirm-table'>
             <div className='d-flex align-items-end tabs'>
                 {originData.map((val, index) => (
-                    <button key={val.index}
+                    <div key={index}
                         className={classNames("btn-link tab", { tabActive: billIndexSelected === index })}
                         onClick={() => setBillSelected(index)}>
-                        <div>
-                            {val.type === "HD" ? "Hóa đơn" : "PNK"} {val.index}
+                        <div className="text-nowrap">
+                            {val.type === "HD" ? "HD-" : "P-"}{get3LastNumber(val.soHoaĐon)}
                         </div>
                         <button
                             className='btn-remove-file btn-default p-0 ml-2 rounded-circle'
                             onClick={() => removeInvoice(index)} >
                             <i className="tim-icons icon-simple-remove" />
                         </button>
-                    </button>
+                    </div>
                 ))}
             </div>
             <Container className='tab-detail'>
@@ -322,7 +328,7 @@ const FileUpload = ({ onSuccess }) => {
             arr[index].type = "HD";
         });
 
-        let arr = [...confirmData.pnk, ...confirmData.hd];
+        let arr = [...confirmData.hd, ...confirmData.pnk];
         let indexBill = 0;
         let indexUnknowBill = 0;
         arr = arr.map((val, index) => {
