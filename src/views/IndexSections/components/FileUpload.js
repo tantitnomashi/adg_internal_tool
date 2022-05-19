@@ -66,21 +66,21 @@ const UnknowTab = ({ isVisible = true, data }) => {
                 <tr>
                     <td className='font-weight-bold'>STT</td>
                     <td className="text-center">
-                        <DataView originValue={data["A"]} />
+                        <DataView originValue={data["a"]} />
                     </td>
                     <td className='font-weight-bold'>Tên hàng hóa</td>
                     <td className="text-center">
-                        <DataView originValue={data["B"]} />
+                        <DataView originValue={data["b"]} />
                     </td>
                 </tr>
                 <tr>
                     <td className='font-weight-bold'>Mã số</td>
                     <td className="text-center">
-                        <DataView originValue={data["C"]} />
+                        <DataView originValue={data["c"]} />
                     </td>
                     <td className='font-weight-bold'>Đơn vị</td>
                     <td className="text-center">
-                        <DataView originValue={data["D"]} />
+                        <DataView originValue={data["d"]} />
                     </td>
                 </tr>
                 <tr>
@@ -90,7 +90,7 @@ const UnknowTab = ({ isVisible = true, data }) => {
                     </td>
                     <td className='font-weight-bold'>Số lượng thực nhập </td>
                     <td className="text-center">
-                        <DataView originValue={data["2"]} />
+                        <DataView originValue={data["1"]} />
                     </td>
                 </tr>
                 <tr>
@@ -323,9 +323,11 @@ const FileUpload = ({ onSuccess }) => {
     const setIndexForBill = (confirmData = { pnk: [], hd: [] }) => {
         confirmData.pnk.map((val, index, arr) => {
             arr[index].type = "PNK";
+            console.log(val);
         });
         confirmData.hd.map((val, index, arr) => {
             arr[index].type = "HD";
+
         });
 
         let arr = [...confirmData.hd, ...confirmData.pnk];
