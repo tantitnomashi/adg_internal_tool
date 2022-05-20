@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 
-const newRoute = "http://ec2-52-221-214-150.ap-southeast-1.compute.amazonaws.com:8082/"
+const host = "http://ec2-52-221-214-150.ap-southeast-1.compute.amazonaws.com:8082/api/internal"
+//const host = "https://api.adg-internal.com/api/internal"
+const TTQT = "/internation-payment";
+const HSGN = "/disbursement";
+
 const instance = axios.create({
-	baseURL: `${newRoute}`,
+	baseURL: `${host}`,
 	timeout: 5000,
 	headers: {
 		// authorization: "Bearer " + localStorage.getItem('admin-token')
@@ -24,14 +28,14 @@ const adminApi = {
 			delay: 3000,
 		});
 	},
-	login: (params) => instance.post('/v1/users/login', params),
-	loadAdminDashboard: () => instance.get('/dashboard/info'),
-	logout: () => instance.get('/user/logout'),
-	generateExcel: (params) => instance.get('https://picsum.photos/200/300', { responseType: "blob" }),
-	exportDisbursement: (params) => instance.post('api/internal/internation-payment/disbursement/bidv/export', params, {
+	login: (params) => instance.post('/login', params),
+	logout: () => instance.get('/logout'),
+
+	exportDisbursement: (params) => instance.post(TTQT + HSGN + '/bidv/export', params, {
 		responseType: "blob"
 	}),
-	importDisbursement: (params) => instance.post('api/internal/internation-payment/disbursement/bidv/import', params, {
+
+	importDisbursement: (params) => instance.post(TTQT + HSGN + '/bidv/import', params, {
 		headers: {
 			'Content-Type': 'multipart/form-data',
 			"X-Requested-With": "*"
@@ -39,75 +43,27 @@ const adminApi = {
 		responseType: "json",
 	}),
 
-
-
-	// // API for Cainet Model
-	// getCabitnet: () => instance.get('/v1/cabinets'),
-	// updateCabinet: (id, params) => {
-	// 	console.log('/v1/cabinets/' + id, params);
-	// 	return instance.post('/v1/cabinets/' + id, params)
-	// },
-	// deleteCabinet: (id) => instance.delete('/v1/cabinets/' + id),
-	// getBoxesInCabinet: (id) => instance.get('/v1/cabinets/' + id + '/boxes'),
-	// getCabinetById: (id) => instance.get('/v1/cabinets/' + id),
-
-	// // API for Cainet Template
-	// createCabinetTemplate: (params) => instance.post('/v1/cabinet-templates', params),
-	// getCabitnetTemplate: () => instance.get('/v1/cabinet-templates'),
-	// getTemplateByCabinetId: (id) => instance.get('/v1/cabinets/' + id + '/template-info'),
-	// deleteCabinetTemplate: (id) => instance.delete('/v1/cabinet-templates/' + id),
-
-
-	// // API for Box 
-	// updateBoxStatus: (params) => instance.post('/v1/boxes/status/' + params.status + '?cabinetId=' + params.cabinetId + '&boxNum=' + params.boxNum),
-	// openBox: (params) => instance.post('/v1/boxes/' + params + '/open'),
-	// getBoxHistory: (params) => instance.get('/v1/box-sizes/box/' + params.boxId + '/from-to?from=' + params.from + "&to=" + params.to),
-	// getBoxHistoryCount: (params) => instance.get('/v1/box-histories/box/' + params.boxId + '?itemCnt=' + params.count),
-
-	// // API for Box Size Model
-	// getBoxSizes: () => instance.get('/v1/box-sizes'),
-	// createBoxSize: (params) => instance.post('/v1/box-sizes', params),
-	// deleteBoxSize: (id) => instance.delete('/v1/box-sizes/' + id),
-	// // API for User Model
-
-
-	// getUser: () => instance.get('/v1/users'),
-	// createUser: (params) => instance.post('/v1/users/admin/create-user', params),
-	// updateUser: (params) => instance.post('/v1/users', params),
-	// updateStatusUser: (params) => instance.post('/v1/users/admin/user-status', params),
-
-	// // API for Rental Transaction Model
-	// getTransaction: () => instance.get('/v1/rental-transactions'),
-	// //api/v1/rental-transactions/{id}/status/{statusCode}
-	// updateTransactionStatus: (id, status) => instance.post('/v1/rental-transactions/' + id + '/status/' + status),
-
-	// // API for Locations
-
-	// getLocation: () => instance.get('/v1/locations'),
-	// createLocation: (params) => instance.post('/v1/locations', params),
-
-	// // API for Rent Time Slot Model
-	// getTimeSlots: () => instance.get('/v1/rent-time-slots'),
-	// deleteTimeSlot: (id) => instance.delete('/v1/rent-time-slots/' + id),
-	// createTimeSlot: (params) => instance.post('/v1/rent-time-slots', params),
-
-
-
-	// // API for Checking Request
-
-	// getCheckingRequest: () => instance.get('/v1/checking-request'),
-	// createCheckingRequest: (params) => instance.post('/v1/checking-request', params),
-	// updateCheckingRequest: (id, params) => {
-	// 	return instance.post('/v1/checking-request/' + id + '/assignee?newAssignee=' + params)
-	// },
-
-	// detailRequest: (params) => instance.post('/request/post_fb_detail', params),
-	// getRequest: (requestId) => instance.get('/request/request_edit/' + requestId),
-	// editRequest: (params) => instance.post('/request/request_edit', params),
-	// getWallet: () => instance.get('/wallet/info'),
-	// getTrans: () => instance.get('/wallet/transactions'),
-	// request2FA: (params) => instance.post('/wallet/require-2fa', params),
-	// withdraw: (params) => instance.post('/wallet/withdraw', params),
 }
+
+// // API for Cainet Model
+// getCabitnet: () => instance.get('/v1/cabinets'),
+// updateCabinet: (id, params) => {
+// 	console.log('/v1/cabinets/' + id, params);
+// 	return instance.post('/v1/cabinets/' + id, params)
+// },
+// deleteCabinet: (id) => instance.delete('/v1/cabinets/' + id),
+// getBoxesInCabinet: (id) => instance.get('/v1/cabinets/' + id + '/boxes'),
+// getCabinetById: (id) => instance.get('/v1/cabinets/' + id),
+
+// // API for Cainet Template
+// createCabinetTemplate: (params) => instance.post('/v1/cabinet-templates', params),
+// getCabitnetTemplate: () => instance.get('/v1/cabinet-templates'),
+// getTemplateByCabinetId: (id) => instance.get('/v1/cabinets/' + id + '/template-info'),
+// deleteCabinetTemplate: (id) => instance.delete('/v1/cabinet-templates/' + id),
+
+
+// // API for Box 
+// updateBoxStatus: (params) => instance.post('/v1/boxes/status/' + params.status + '?cabinetId=' + params.cabinetId + '&boxNum=' + params.boxNum),
+
 
 export default adminApi;

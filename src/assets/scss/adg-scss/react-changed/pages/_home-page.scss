@@ -179,11 +179,17 @@
   }
 
   td {
+    
     .bill-value {
-      height: 30px;
-      width: 350px;
-      overflow: hidden;
-    }
+        height: 30px;
+        width: 350px;
+        overflow: hidden;
+      }
+      .bill-value-pnk {
+        height: 30px;
+        width: auto;
+        overflow: hidden;
+      }
   }
 
   th {
