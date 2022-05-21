@@ -25,7 +25,7 @@ export const PNK = ({ isVisible = true, info }) => {
                 </thead>
                 <tbody >
 
-                    {info.thongtin.map(data => (
+                    {info.thongtin?.map(data => (
                         <tr>
                             {/* <td className="text-center">
                                 <DataViewPNK originValue={data["a"]} />
