@@ -45,8 +45,8 @@ export default function Footer() {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/landing-page" tag={Link}>
-                  Hồ sơ ABC
+                <NavLink to="/companyList" tag={Link}>
+                  Danh sách công ty
                 </NavLink>
               </NavItem>
               <NavItem>

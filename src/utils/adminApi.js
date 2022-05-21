@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-const host = "http://ec2-52-221-214-150.ap-southeast-1.compute.amazonaws.com:8082/api/internal"
-//const host = "https://api.adg-internal.com/api/internal"
+//const host = "http://ec2-52-221-214-150.ap-southeast-1.compute.amazonaws.com:8082/api/internal"
+const host = "https://www.api.adg-internal.com/api/internal"
 const TTQT = "/internation-payment";
 const HSGN = "/disbursement";
 
