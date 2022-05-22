@@ -44,8 +44,8 @@ export const BillTab = ({ isVisible = true, data, onChangeData = () => { } }) =>
                     </td>
                     <td className='font-weight-bold'>Số hóa đơn</td>
                     <td className="text-center">
-                        <DataView originValue={data.soHoaĐon}
-                            onChange={(val) => onChange(val, "soHoaĐon")}
+                        <DataView originValue={data.soHoaDon}
+                            onChange={(val) => onChange(val, "soHoaDon")}
                         />
                     </td>
                 </tr>

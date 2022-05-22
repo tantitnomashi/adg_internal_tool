@@ -26,7 +26,7 @@ export const BillTabGroup = ({ originData = [], onModifyData = () => { } }) => {
                         className={classNames("btn-link tab", { tabActive: billIndexSelected === index })}
                         onClick={() => setBillSelected(index)}>
                         <div className="text-nowrap">
-                            {val.type === "HD" ? "HD-" : "P-"}{get3LastNumber(val.soHoaĐon)}
+                            {val.type === "HD" ? "HD-" : "P-"}{get3LastNumber(val.soHoaDon)}
                         </div>
                         <button
                             className='btn-remove-file btn-default p-0 ml-2 rounded-circle'
