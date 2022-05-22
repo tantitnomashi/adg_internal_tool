@@ -9,7 +9,7 @@ import { DataViewPNK } from './DataViewPNK';
 export const PNK = ({ isVisible = true, info }) => {
     return (
         <div className={classNames({ "d-none ": !isVisible })}>
-            <h3 className='text-dark my-0 py-0'>{info["nhaCungCap"]}  -  {info["soHoaĐon"]} </h3>
+            <h3 className='text-dark my-0 py-0'>{info["nhaCungCap"]}  -  {info["soHoaDon"]} </h3>
             <Table style={{ marginBottom: "200px" }}>
                 <thead>
                     <tr>
