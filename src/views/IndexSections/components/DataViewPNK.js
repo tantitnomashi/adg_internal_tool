@@ -17,13 +17,13 @@ export const DataViewPNK = ({ originValue, onChange }) => {
                     value={val}
                     onChange={({ target: { value } }) => setVal(value)} />
 
-                <button className="btn-simple p-0 px-2 rounded-0 h-auto" color="primary" size="sm"
+                {/* <button className="btn-simple p-0 px-2 rounded-0 h-auto" color="primary" size="sm"
                     onClick={() => {
                         setChangeMode(false);
                         onChangeValue();
                     }}>
                     <i className="tim-icons icon-check-2" />
-                </button>
+                </button> */}
             </div>
         )
     } else {
@@ -35,12 +35,12 @@ export const DataViewPNK = ({ originValue, onChange }) => {
                         originValue
                     }
                 </div>
-                <button className="btn-link p-0 px-2" color="primary" size="sm"
+                {/* <button className="btn-link p-0 px-2" color="primary" size="sm"
                     onClick={() => {
                         setChangeMode(true);
                     }}>
                     <i className="tim-icons icon-pencil" />
-                </button>
+                </button> */}
             </div>
         )
     }

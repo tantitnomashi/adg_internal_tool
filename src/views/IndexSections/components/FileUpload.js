@@ -5,6 +5,8 @@ import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table } from '
 import API from 'utils/adminApi';
 import { waiting } from 'utils/waiting';
 import { BillTabGroup } from './BillTabGroup';
+import LoadingMask from "react-loadingmask";
+import "react-loadingmask/dist/react-loadingmask.css";
 
 
 const convertPNK = (pnkList) => {
@@ -13,9 +15,9 @@ const convertPNK = (pnkList) => {
         let isExist = false;
 
         list.map((val, index, arr) => {
-            if (pnk.soHoaĐon === val.soHoaĐon && pnk.nhaCungCap === val.nhaCungCap) {
+            if (pnk.soHoaDon === val.soHoaDon && pnk.nhaCungCap === val.nhaCungCap) {
                 let tmp = { ...pnk };
-                delete tmp.soHoaĐon;
+                delete tmp.soHoaDon;
                 delete tmp.nhaCungCap;
                 arr[index].thongtin.push(tmp);
                 isExist = true;
@@ -23,8 +25,8 @@ const convertPNK = (pnkList) => {
         });
 
         if (!isExist) {
-            let tmp = { soHoaĐon: pnk.soHoaĐon, nhaCungCap: pnk.nhaCungCap, thongtin: [] };
-            delete pnk.soHoaĐon;
+            let tmp = { soHoaDon: pnk.soHoaDon, nhaCungCap: pnk.nhaCungCap, thongtin: [] };
+            delete pnk.soHoaDon;
             delete pnk.nhaCungCap;
             tmp.thongtin.push(pnk);
             list.push(tmp);
@@ -33,6 +35,21 @@ const convertPNK = (pnkList) => {
     return list;
 }
 
+const convertToOriginalPNK = (pnkList) => {
+    let list = [];
+    pnkList.map(pnk => {
+        let infoMap = pnk.thongtin;
+        infoMap.map((val, index, arr) => {
+
+            let tmp = val;
+            tmp.soHoaDon = pnk.soHoaDon;
+            tmp.nhaCungCap = pnk.nhaCungCap;
+            list.push(tmp)
+
+        });
+    });
+    return list;
+}
 
 
 const FileUpload = ({ onSuccess }) => {
@@ -65,6 +82,7 @@ const FileUpload = ({ onSuccess }) => {
     const [file, setFile] = useState([]);
     const [message, setMessage] = useState('');
     const [isOpenConfirm, hadOpenConfirm] = useState(false);
+    const [waiting, setWaiting] = useState(false);
 
 
 
@@ -90,6 +108,7 @@ const FileUpload = ({ onSuccess }) => {
 
     //upload clicked 
     const onSubmit = async e => {
+        setWaiting(true);
 
 
         e.preventDefault();
@@ -98,16 +117,22 @@ const FileUpload = ({ onSuccess }) => {
         formData.append('file', file[0]);
 
         API.importDisbursement(formData).then(({ data }) => {
+            setWaiting(false);
             setArrayBill(setIndexForBill(data.data));
             hadOpenConfirm(true);
 
         }).catch((err) => {
             alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
+            setWaiting(false);
+
         })
     };
 
     // click "Xác nhận"
     const onConfirmData = () => {
+        hadOpenConfirm(false);
+        setWaiting(true);
+        //loading
         const body = {
             pnk: [],
             hd: []
@@ -123,11 +148,19 @@ const FileUpload = ({ onSuccess }) => {
             }
         })
 
+        console.log(body);
+
+        let originalPNK = convertToOriginalPNK(body.pnk);
+        body.pnk = originalPNK;
+
+
         API.exportDisbursement({ data: body }).then((res) => {
             let xlsx = URL.createObjectURL(new Blob([res.data], { type: "application/zip" }));
             onSuccess(xlsx);
+            // stop loading
         }).catch(err => {
             alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
+            setWaiting(false);
         });
     }
 
@@ -154,65 +187,67 @@ const FileUpload = ({ onSuccess }) => {
             </Modal>
 
 
-            <form className='upload-container d-flex flex-column' onSubmit={onSubmit}>
+            <form className='upload-container ' onSubmit={onSubmit}>
                 <div className='bg' />
 
-                <div className='content'>
-                    <div className='w-100 d-flex'>
-                        <div className='select-bank btn-neutral'>
-                            <select className='select-bank-content'>
-                                <option>BIDV</option>
-                                <option>Vietcombank</option>
-                                <option>Techcombank</option>
-                                <option>TP Bank</option>
-                                <option>ACB</option>
+                <LoadingMask loading={waiting} className={"w-100 h-100"}>
+                    <div className='content d-flex flex-column'>
+                        <div className='w-100 d-flex'>
+                            <div className='select-bank btn-neutral'>
+                                <select className='select-bank-content'>
+                                    <option>BIDV</option>
+                                    <option>Vietcombank</option>
+                                    <option>Techcombank</option>
+                                    <option>TP Bank</option>
+                                    <option>ACB</option>
 
 
-                            </select>
-                        </div>
-                        <div className='import-file btn-info'>
-                            <input
-                                id='customFile'
-                                type='file'
-                                className='import-file-input'
-                                onChange={onChange}
-                                multiple
-                            />
-                            <label className='import-file-label d-flex flex-column' htmlFor='customFile'>
-                                Chọn File
-                            </label>
-                        </div>
-                        {file.length > 0 && (
-                            <div>
-                                {file.map((val, index) => (
-                                    <div className='text-dark my-1 d-flex align-items-center' key={val.name}>
-                                        <div className='filename'>{val.name}</div>
-                                        <button onClick={() => removeFile(index)} className='btn-remove-file p-0 mx-2 btn-icon btn-default btn-round'>
-                                            <i className="tim-icons icon-simple-remove"></i>
-                                        </button>
-                                    </div>
-                                ))}
-
+                                </select>
                             </div>
-                        )}
+                            <div className='import-file btn-info'>
+                                <input
+                                    id='customFile'
+                                    type='file'
+                                    className='import-file-input'
+                                    onChange={onChange}
+                                    multiple
+                                />
+                                <label className='import-file-label d-flex flex-column' htmlFor='customFile'>
+                                    Chọn File
+                                </label>
+                            </div>
+                            {file.length > 0 && (
+                                <div>
+                                    {file.map((val, index) => (
+                                        <div className='text-dark my-1 d-flex align-items-center' key={val.name}>
+                                            <div className='filename'>{val.name}</div>
+                                            <button onClick={() => removeFile(index)} className='btn-remove-file p-0 mx-2 btn-icon btn-default btn-round'>
+                                                <i className="tim-icons icon-simple-remove"></i>
+                                            </button>
+                                        </div>
+                                    ))}
 
+                                </div>
+                            )}
+
+                        </div>
+
+
+                        <div className='w-100'>
+                            {file.length > 0 ? <>
+
+                                <input
+                                    type='submit'
+                                    value='Upload'
+                                    className='btn btn-primary btn-block mt-4 py-4'
+                                /></>
+                                : undefined}
+                        </div>
                     </div>
+                </LoadingMask>
 
-
-                    <div className='w-100'>
-                        {file.length > 0 ? <>
-
-                            <input
-                                type='submit'
-                                value='Upload'
-                                className='btn btn-primary btn-block mt-4 py-4'
-                            /></>
-                            : undefined}
-                    </div>
-                </div>
             </form>
-
-        </div>
+        </div >
     );
 };
 
