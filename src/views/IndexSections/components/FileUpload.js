@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table, FormGroup } from 'reactstrap';
+import Datetime from 'react-datetime';
+import moment from 'moment';
 
 import API from 'utils/adminApi';
 import { waiting } from 'utils/waiting';
@@ -77,13 +79,11 @@ const FileUpload = ({ onSuccess }) => {
         return arr;
     }
 
-    const [confirmData, setConfirmData] = useState([]);
     const [arrayBill, setArrayBill] = useState(setIndexForBill());
     const [file, setFile] = useState([]);
-    const [message, setMessage] = useState('');
     const [isOpenConfirm, hadOpenConfirm] = useState(false);
     const [waiting, setWaiting] = useState(false);
-
+    const [fileDate, setFileDate] = useState(moment().format("DD/MM/YYYY"));
 
 
     // set file to upload
@@ -102,6 +102,13 @@ const FileUpload = ({ onSuccess }) => {
     const removeFile = (index) => {
         file.splice(index, 1);
         setFile([...file]);
+    }
+
+    //onChange Datetime Picker
+    const onChangeDateTime = e => {
+        setFileDate(moment(e).format("DD/MM/YYYY"));
+        console.log(moment(e).format("DD/MM/YYYY"));
+
     }
 
 
@@ -124,7 +131,6 @@ const FileUpload = ({ onSuccess }) => {
         }).catch((err) => {
             alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
             setWaiting(false);
-
         })
     };
 
@@ -135,7 +141,8 @@ const FileUpload = ({ onSuccess }) => {
         //loading
         const body = {
             pnk: [],
-            hd: []
+            hd: [],
+            fileDate: fileDate
         }
         arrayBill.map(val => {
             delete val.index;
@@ -172,8 +179,14 @@ const FileUpload = ({ onSuccess }) => {
                         <i className="tim-icons icon-simple-remove"></i>
                     </button>
                     <h5 className="modal-title">Vui lòng xác nhận lại thông tin</h5>
+                    <FormGroup className='mr-4 pr-4'>
+                        <Datetime
+                            timeFormat={false} onChange={onChangeDateTime}
+                            inputProps={{ placeholder: "Chọn ngày giải ngân", className: "text-dark form-control text-center mr-2" }}
+                        />
+                    </FormGroup>
                 </div>
-                <ModalBody>
+                <ModalBody className='pt-0'>
                     <BillTabGroup originData={arrayBill} onModifyData={setArrayBill} />
                 </ModalBody>
                 <ModalFooter>
