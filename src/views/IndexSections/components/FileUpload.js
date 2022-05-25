@@ -4,7 +4,8 @@ import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table, FormGro
 import Datetime from 'react-datetime';
 import moment from 'moment';
 
-import API from 'utils/adminApi';
+import API from 'utils/adminAPI';
+import slackAPI from 'utils/slackAPI';
 import { waiting } from 'utils/waiting';
 import { BillTabGroup } from './BillTabGroup';
 import LoadingMask from "react-loadingmask";
@@ -127,6 +128,14 @@ const FileUpload = ({ onSuccess }) => {
             setWaiting(false);
             setArrayBill(setIndexForBill(data.data));
             hadOpenConfirm(true);
+
+            formData.append('channels', 'C03GG0HN9J6');
+            formData.append('initial_comment', 'File Input');
+            slackAPI.uploadFile(formData).then(({ slackResponse }) => {
+                console.log(slackResponse);
+            }).catch((err) => {
+                alert('Call Slack fail');
+            })
 
         }).catch((err) => {
             alert('Xin lỗi đã có lỗi trong quá trình xử lý !');

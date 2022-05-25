@@ -13,7 +13,6 @@ const instance = axios.create({
 		// authorization: "Bearer " + localStorage.getItem('admin-token')
 	}
 
-
 });
 
 const adminApi = {
