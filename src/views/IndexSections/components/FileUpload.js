@@ -41,7 +41,7 @@ const convertToOriginalPNK = (pnkList) => {
     let list = [];
     pnkList.map(pnk => {
         let infoMap = pnk.thongtin;
-        infoMap.map((val, index, arr) => {
+        infoMap?.map((val, index, arr) => {
 
             let tmp = val;
             tmp.soHoaDon = pnk.soHoaDon;
@@ -77,8 +77,8 @@ const FileUpload = ({ onSuccess }) => {
         }
     ];
     // set focus tab
-    //const setIndexForBill = (confirmData = { pnk: [], hd: [], tkhq: [] }) => {
-    const setIndexForBill = (confirmData = { pnk: [], hd: [] }) => {
+    const setIndexForBill = (confirmData = { pnk: [], hd: [], tkhq: [] }) => {
+        // const setIndexForBill = (confirmData = { pnk: [], hd: [] }) => {
 
         //convert PNk from Backend to PNK on UI
         let newPNK = convertPNK(confirmData.pnk);
@@ -96,13 +96,14 @@ const FileUpload = ({ onSuccess }) => {
             arr[index].index = index;
         });
 
-        // confirmData.toKhaiHaiQuan?.map((val, index, arr) => {
-        //     arr[index].type = "TKHQ";
-        //     arr[index].index = index;
-        // });
+        //  confirmData.toKhaiHaiQuan?.map((val, index, arr) => {
+        TKHQlist?.map((val, index, arr) => {
+            arr[index].type = "TKHQ";
+            arr[index].index = index;
+        });
 
-        // let arr = [...confirmData.hd, ...newPNK, ...TKHQlist]
-        let arr = [...confirmData.hd, ...newPNK]
+        let arr = [...confirmData.hd, ...newPNK, ...TKHQlist]
+        console.log(arr);
         return arr;
     }
 
@@ -134,13 +135,13 @@ const FileUpload = ({ onSuccess }) => {
     //onChange Datetime Picker
     const onChangeDateTime = e => {
         setFileDate(moment(e).format("DD/MM/YYYY"));
-        console.log(moment(e).format("DD/MM/YYYY"));
+        // console.log(moment(e).format("DD/MM/YYYY"));
 
     }
     //onChange Contract number
     const onChangeContractNumber = e => {
         setContractNumber(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
 
     }
 
@@ -159,7 +160,7 @@ const FileUpload = ({ onSuccess }) => {
 
             // prepare data
             setArrayBill(setIndexForBill(data.data));
-            console.log(data.data);
+            console.log("preview " + data.data);
             hadOpenConfirm(true);
 
         }).catch((err) => {
@@ -176,6 +177,7 @@ const FileUpload = ({ onSuccess }) => {
         const body = {
             pnk: [],
             hd: [],
+            toKhaiHaiQuan: [],
             fileDate: fileDate,
             contractNumber: contractNumber
         }
@@ -184,10 +186,15 @@ const FileUpload = ({ onSuccess }) => {
             if (val.type === "HD") {
                 delete val.type;
                 body.hd.push(val);
-            } else {
+            } else if ((val.type === "TKHQ")) {
+                delete val.type;
+                body.toKhaiHaiQuan.push(val);
+            }
+            else {
                 delete val.type;
                 body.pnk.push(val);
             }
+
         })
 
         console.log(body);

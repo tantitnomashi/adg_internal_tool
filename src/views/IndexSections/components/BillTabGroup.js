@@ -47,14 +47,22 @@ export const BillTabGroup = ({ originData = [], onModifyData = () => { } }) => {
                             }} />
                         )
                     }
-                    // if (val.type === "TKHQ") {
-                    //     return (
-                    //         <TKHQ key={index} data={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
-                    //             originData[index] = data;
-                    //             onModifyData([...originData]);
-                    //         }} />
-                    //     )
-                    // }
+                    if (val.type === "TKHQ") {
+                        return (
+                            <TKHQ key={index} data={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
+                                originData[index] = data;
+                                onModifyData([...originData]);
+                            }} />
+                        )
+                    }
+                    if (val.type === "TKHQ") {
+                        return (
+                            <TKHQ key={index} data={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
+                                originData[index] = data;
+                                onModifyData([...originData]);
+                            }} />
+                        )
+                    }
                     return (
 
 
