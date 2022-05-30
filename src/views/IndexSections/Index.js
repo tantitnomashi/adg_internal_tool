@@ -17,8 +17,8 @@ export default function Index() {
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
   }, []);
-  const onUploadSuccess = (newData) => {
-    setData(newData);
+  const onUploadSuccess = (newData, fileDate) => {
+    setData([newData, fileDate]);
     setDownloadable(true);
   }
 
@@ -26,39 +26,34 @@ export default function Index() {
 
 
   return (
-    <LoadingOverlay
-      active={waiting}
-      spinner
-    >
-      <div className="index-page">
-        <IndexNavbar />
-        <div className="wrapper">
+
+    <div className="index-page">
+      <IndexNavbar />
+      <div className="wrapper">
 
 
-          <div className="page-header header-filter">
+        <div className="page-header header-filter">
 
 
-            <Container>
-              <div className="content-center">
-                <h2 className="d-sm-block">
-                  Hồ sơ giải ngân
-                </h2>
-                {downloadable ?
-                  <a className="btn btn-success py-4 " href={data}
-                    download="test.zip">Tải về Hồ sơ</a>
-                  :
-                  <FileUpload onSuccess={onUploadSuccess} />
-                }
+          <Container>
+            <div className="content-center">
+              <h2 className="d-sm-block">
+                Hồ sơ giải ngân {data ? data[1] : ""}
+              </h2>
+              {downloadable ?
+                <a className="btn btn-success py-4 " href={data[0]}
+                  download={`HoSoGiaiNgan-${data[1]}.zip`}>Tải về Hồ sơ</a>
+                :
+                <FileUpload onSuccess={onUploadSuccess} />
+              }
 
-              </div>
-            </Container>
+            </div>
+          </Container>
 
-            <PageHeader />
-          </div>
-
-          <Footer />
+          <PageHeader />
         </div>
+
+        <Footer />
       </div>
-    </LoadingOverlay>
-  );
+    </div>);
 }

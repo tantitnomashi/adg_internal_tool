@@ -55,9 +55,32 @@ const convertToOriginalPNK = (pnkList) => {
 
 
 const FileUpload = ({ onSuccess }) => {
+
+    let TKHQlist = [
+        {
+            "soToKhai": "104722599000",
+            "tenCoQuanHaiQuanTiepNhanToKhai": "Chi cục HQ CK cảng Hải Phòng KV III",
+            "tongTienThuePhaiNop": "759002400",
+            "ngayDangKy": "19/05/2022"
+        },
+        {
+            "soToKhai": "104722620700",
+            "tenCoQuanHaiQuanTiepNhanToKhai": "Chi cục HQ CK cảng Hải Phòng KV III",
+            "tongTienThuePhaiNop": "198437175",
+            "ngayDangKy": "19/05/2022"
+        },
+        {
+            "soToKhai": "104722519750",
+            "tenCoQuanHaiQuanTiepNhanToKhai": "Chi cục HQ CK cảng Hải Phòng KV III",
+            "tongTienThuePhaiNop": "536112000",
+            "ngayDangKy": "19/05/2022"
+        }
+    ];
     // set focus tab
+    //const setIndexForBill = (confirmData = { pnk: [], hd: [], tkhq: [] }) => {
     const setIndexForBill = (confirmData = { pnk: [], hd: [] }) => {
 
+        //convert PNk from Backend to PNK on UI
         let newPNK = convertPNK(confirmData.pnk);
 
         newPNK.map((val, index, arr) => {
@@ -71,10 +94,14 @@ const FileUpload = ({ onSuccess }) => {
         confirmData.hd.map((val, index, arr) => {
             arr[index].type = "HD";
             arr[index].index = index;
-
-
         });
 
+        // confirmData.toKhaiHaiQuan?.map((val, index, arr) => {
+        //     arr[index].type = "TKHQ";
+        //     arr[index].index = index;
+        // });
+
+        // let arr = [...confirmData.hd, ...newPNK, ...TKHQlist]
         let arr = [...confirmData.hd, ...newPNK]
         return arr;
     }
@@ -84,7 +111,7 @@ const FileUpload = ({ onSuccess }) => {
     const [isOpenConfirm, hadOpenConfirm] = useState(false);
     const [waiting, setWaiting] = useState(false);
     const [fileDate, setFileDate] = useState(moment().format("DD/MM/YYYY"));
-
+    const [contractNumber, setContractNumber] = useState(0);
 
     // set file to upload
     const onChange = e => {
@@ -110,14 +137,18 @@ const FileUpload = ({ onSuccess }) => {
         console.log(moment(e).format("DD/MM/YYYY"));
 
     }
+    //onChange Contract number
+    const onChangeContractNumber = e => {
+        setContractNumber(e.target.value);
+        console.log(e.target.value);
+
+    }
 
 
 
     //upload clicked 
     const onSubmit = async e => {
         setWaiting(true);
-
-
         e.preventDefault();
         const formData = new FormData();
         // formData.append('bank', "Vietcombank");
@@ -125,7 +156,10 @@ const FileUpload = ({ onSuccess }) => {
 
         API.importDisbursement(formData).then(({ data }) => {
             setWaiting(false);
+
+            // prepare data
             setArrayBill(setIndexForBill(data.data));
+            console.log(data.data);
             hadOpenConfirm(true);
 
         }).catch((err) => {
@@ -142,7 +176,8 @@ const FileUpload = ({ onSuccess }) => {
         const body = {
             pnk: [],
             hd: [],
-            fileDate: fileDate
+            fileDate: fileDate,
+            contractNumber: contractNumber
         }
         arrayBill.map(val => {
             delete val.index;
@@ -163,7 +198,7 @@ const FileUpload = ({ onSuccess }) => {
 
         API.exportDisbursement({ data: body }).then((res) => {
             let xlsx = URL.createObjectURL(new Blob([res.data], { type: "application/zip" }));
-            onSuccess(xlsx);
+            onSuccess(xlsx, fileDate);
             // stop loading
         }).catch(err => {
             alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
@@ -179,11 +214,20 @@ const FileUpload = ({ onSuccess }) => {
                         <i className="tim-icons icon-simple-remove"></i>
                     </button>
                     <h5 className="modal-title">Vui lòng xác nhận lại thông tin</h5>
+
+
                     <FormGroup className='mr-4 pr-4'>
-                        <Datetime
-                            timeFormat={false} onChange={onChangeDateTime}
-                            inputProps={{ placeholder: "Chọn ngày giải ngân", className: "text-dark form-control text-center mr-2" }}
-                        />
+                        <div className='row'>
+                            <Input className='form-control text-dark col-md-4' name='contractNumber' onChange={onChangeContractNumber} type='number' placeholder='Số hồ sơ' />
+                            <div className='col-md-8'>
+                                <Datetime
+                                    timeFormat={false} onChange={onChangeDateTime}
+                                    inputProps={{ placeholder: "Chọn ngày giải ngân", className: "text-dark form-control text-center mr-2 " }}
+                                />
+                            </div>
+                        </div>
+
+
                     </FormGroup>
                 </div>
                 <ModalBody className='pt-0'>
@@ -209,12 +253,10 @@ const FileUpload = ({ onSuccess }) => {
                             <div className='select-bank btn-neutral'>
                                 <select className='select-bank-content'>
                                     <option>BIDV</option>
+                                    <option>Vietinbank</option>
+                                    <option>MB</option>
                                     <option>Vietcombank</option>
-                                    <option>Techcombank</option>
-                                    <option>TP Bank</option>
                                     <option>ACB</option>
-
-
                                 </select>
                             </div>
                             <div className='import-file btn-info'>
