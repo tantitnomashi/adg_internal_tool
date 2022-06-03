@@ -97,10 +97,6 @@ const FileUpload = ({ onSuccess }) => {
             arr[index].index = index;
         });
 
-        // confirmData.tkhq?.map((val, index, arr) => {
-        //     arr[index].type = "TKHQ";
-        //     arr[index].index = index;
-        // });
 
         let toKhaiTab = {};
         toKhaiTab.list = confirmData.tkhq;
@@ -108,7 +104,9 @@ const FileUpload = ({ onSuccess }) => {
 
 
         let arr = [...confirmData.hd, ...newPNK];
-        arr.push(toKhaiTab);
+        if (confirmData.tkhq !== undefined) {
+            arr.push(toKhaiTab);
+        }
         console.log(arr);
         return arr;
     }
