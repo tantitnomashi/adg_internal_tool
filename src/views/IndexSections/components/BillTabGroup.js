@@ -27,7 +27,16 @@ export const BillTabGroup = ({ originData = [], onModifyData = () => { } }) => {
                         className={classNames("btn-link tab", { tabActive: billIndexSelected === index })}
                         onClick={() => setBillSelected(index)}>
                         <div className="text-nowrap">
-                            {val.type === "HD" ? "HD-" : "P-"}{get3LastNumber(val.soHoaDon)}
+                            {/* {val.type === "HD" ? "HD-" : "P-"}{get3LastNumber(val.soHoaDon)} */}
+                            {val.type === "HD" && (<>
+                                HD - {get3LastNumber(val.soHoaDon)}
+                            </>)}
+                            {val.type === "PNK" && (<>
+                                PNK - {get3LastNumber(val.soHoaDon)}
+                            </>)}
+                            {val.type === "TKHQ" && (<>
+                                Tờ khai Hải quan
+                            </>)}
                         </div>
                         <button
                             className='btn-remove-file btn-default p-0 ml-2 rounded-circle'
@@ -49,20 +58,14 @@ export const BillTabGroup = ({ originData = [], onModifyData = () => { } }) => {
                     }
                     if (val.type === "TKHQ") {
                         return (
-                            <TKHQ key={index} data={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
-                                originData[index] = data;
-                                onModifyData([...originData]);
-                            }} />
-                        )
+                            <>
+                                <TKHQ key={index} info={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
+                                    originData[index] = data;
+                                    onModifyData([...originData]);
+                                }} />
+                            </>)
                     }
-                    if (val.type === "TKHQ") {
-                        return (
-                            <TKHQ key={index} data={val} isVisible={billIndexSelected === index} onChangeData={(data) => {
-                                originData[index] = data;
-                                onModifyData([...originData]);
-                            }} />
-                        )
-                    }
+
                     return (
 
 

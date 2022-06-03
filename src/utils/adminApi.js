@@ -31,11 +31,11 @@ const adminApi = {
 	login: (params) => instance.post('/login', params),
 	logout: () => instance.get('/logout'),
 
-	exportDisbursement: (params) => instance.post(TTQT + HSGN + '/bidv/export', params, {
+	exportDisbursement: (params) => instance.post(TTQT + HSGN + '/' + params.data.bank + '/export', params, {
 		responseType: "blob"
 	}),
 
-	importDisbursement: (params) => instance.post(TTQT + HSGN + '/bidv/import', params, {
+	importDisbursement: (params, formData) => instance.post(TTQT + HSGN + '/' + params.bank + '/import', formData, {
 		headers: {
 			'Content-Type': 'multipart/form-data',
 			"X-Requested-With": "*"

@@ -6,9 +6,10 @@ import classNames from 'classnames';
 import { DataViewPNK } from './DataViewPNK';
 
 
-export const TKHQ = ({ isVisible = true, data }) => {
+export const TKHQ = ({ isVisible = true, info }) => {
     return (
         <div className={classNames({ "d-none ": !isVisible })}>
+
             <Table style={{ marginBottom: "200px" }}>
                 <thead>
                     <tr>
@@ -22,27 +23,28 @@ export const TKHQ = ({ isVisible = true, data }) => {
                 </thead>
                 <tbody >
 
+                    {info.list?.map(data => (
+                        <tr>
 
-                    <tr>
+                            <td className="text-center">
+                                <DataViewPNK originValue={data["soToKhai"]} />
+                            </td>
 
-                        <td className="text-center">
-                            <DataViewPNK originValue={data["soToKhai"]} />
-                        </td>
+                            <td className="text-center">
+                                <DataViewPNK originValue={data["tenCoQuanHaiQuanTiepNhanToKhai"]} />
+                            </td>
 
-                        <td className="text-center">
-                            <DataViewPNK originValue={data["tenCoQuanHaiQuanTiepNhanToKhai"]} />
-                        </td>
+                            <td className="text-left">
+                                <DataViewPNK originValue={data["tongTienThuePhaiNop"]} />
+                            </td>
 
-                        <td className="text-center">
-                            <DataViewPNK originValue={data["tongTienThuePhaiNop"]} />
-                        </td>
+                            <td className="text-left">
+                                <DataViewPNK originValue={data["ngayDangKy"]} />
+                            </td>
 
-                        <td className="text-center">
-                            <DataViewPNK originValue={data["ngayDangKy"]} />
-                        </td>
+                        </tr>
 
-                    </tr>
-
+                    ))}
 
 
                 </tbody>
