@@ -214,6 +214,7 @@ const FileUpload = ({ onSuccess }) => {
         let originalPNK = convertToOriginalPNK(body.pnk);
         body.pnk = originalPNK;
         body.bank = bank;
+        console.log("prepare");
         console.log(body);
 
 

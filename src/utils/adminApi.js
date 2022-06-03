@@ -8,7 +8,7 @@ const HSGN = "/disbursement";
 
 const instance = axios.create({
 	baseURL: `${host}`,
-	timeout: 5000,
+	timeout: 15000,
 	headers: {
 		// authorization: "Bearer " + localStorage.getItem('admin-token')
 	}
