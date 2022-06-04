@@ -7,7 +7,7 @@ const HSGN = "/disbursement";
 
 const instance = axios.create({
 	baseURL: `${host}`,
-	timeout: 15000,
+	timeout: 150000,
 	headers: {
 
 	}
