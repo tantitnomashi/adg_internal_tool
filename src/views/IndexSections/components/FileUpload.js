@@ -9,14 +9,15 @@ import { waiting } from 'utils/waiting';
 import { BillTabGroup } from './BillTabGroup';
 import LoadingMask from "react-loadingmask";
 import "react-loadingmask/dist/react-loadingmask.css";
+import { tokenToString } from 'typescript';
 
 
 const convertPNK = (pnkList) => {
     let list = [];
-    pnkList.map(pnk => {
+    pnkList?.map(pnk => {
         let isExist = false;
 
-        list.map((val, index, arr) => {
+        list?.map((val, index, arr) => {
             if (pnk.soHoaDon === val.soHoaDon && pnk.nhaCungCap === val.nhaCungCap) {
                 let tmp = { ...pnk };
                 delete tmp.soHoaDon;
@@ -41,7 +42,7 @@ const convertToOriginalPNK = (pnkList) => {
     let list = [];
     pnkList.map(pnk => {
         let infoMap = pnk.thongtin;
-        infoMap.map((val, index, arr) => {
+        infoMap?.map((val, index, arr) => {
 
             let tmp = val;
             tmp.soHoaDon = pnk.soHoaDon;
@@ -77,32 +78,36 @@ const FileUpload = ({ onSuccess }) => {
         }
     ];
     // set focus tab
-    //const setIndexForBill = (confirmData = { pnk: [], hd: [], tkhq: [] }) => {
-    const setIndexForBill = (confirmData = { pnk: [], hd: [] }) => {
-
+    const setIndexForBill = (confirmData = { pnk: [], hd: [], tkhq: [] }) => {
         //convert PNk from Backend to PNK on UI
-        let newPNK = convertPNK(confirmData.pnk);
+        let newPNK = [];
+        if (confirmData.pnk?.length > 0) {
+            newPNK = convertPNK(confirmData.pnk);
 
-        newPNK.map((val, index, arr) => {
+            newPNK?.map((val, index, arr) => {
+                arr[index].type = "PNK";
+                arr[index].index = index;
+            });
 
-            arr[index].type = "PNK";
-            arr[index].index = index;
-
-        });
+        }
 
 
-        confirmData.hd.map((val, index, arr) => {
+        confirmData.hd?.map((val, index, arr) => {
             arr[index].type = "HD";
             arr[index].index = index;
         });
 
-        // confirmData.toKhaiHaiQuan?.map((val, index, arr) => {
-        //     arr[index].type = "TKHQ";
-        //     arr[index].index = index;
-        // });
 
-        // let arr = [...confirmData.hd, ...newPNK, ...TKHQlist]
-        let arr = [...confirmData.hd, ...newPNK]
+        let toKhaiTab = {};
+        toKhaiTab.list = confirmData.tkhq;
+        toKhaiTab.type = "TKHQ";
+
+
+        let arr = [...confirmData.hd, ...newPNK];
+        if (confirmData.tkhq !== undefined) {
+            arr.push(toKhaiTab);
+        }
+        console.log(arr);
         return arr;
     }
 
@@ -112,6 +117,8 @@ const FileUpload = ({ onSuccess }) => {
     const [waiting, setWaiting] = useState(false);
     const [fileDate, setFileDate] = useState(moment().format("DD/MM/YYYY"));
     const [contractNumber, setContractNumber] = useState(0);
+    const [bank, setBank] = useState("bidv");
+
 
     // set file to upload
     const onChange = e => {
@@ -134,13 +141,19 @@ const FileUpload = ({ onSuccess }) => {
     //onChange Datetime Picker
     const onChangeDateTime = e => {
         setFileDate(moment(e).format("DD/MM/YYYY"));
-        console.log(moment(e).format("DD/MM/YYYY"));
+        // console.log(moment(e).format("DD/MM/YYYY"));
 
     }
     //onChange Contract number
     const onChangeContractNumber = e => {
         setContractNumber(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
+
+    }
+    //onChange bank
+    const onChangeBank = e => {
+        setBank(e.target.value);
+        // console.log(e.target.value);
 
     }
 
@@ -151,19 +164,17 @@ const FileUpload = ({ onSuccess }) => {
         setWaiting(true);
         e.preventDefault();
         const formData = new FormData();
-        // formData.append('bank', "Vietcombank");
         formData.append('file', file[0]);
-
-        API.importDisbursement(formData).then(({ data }) => {
+        let params = { 'bank': bank }
+        API.importDisbursement(params, formData).then(({ data }) => {
             setWaiting(false);
+            // console.log(data.data);
 
-            // prepare data
             setArrayBill(setIndexForBill(data.data));
-            console.log(data.data);
             hadOpenConfirm(true);
 
         }).catch((err) => {
-            alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
+            alert('Có lỗi trong quá trình Upload dữ liệu!');
             setWaiting(false);
         })
     };
@@ -176,6 +187,7 @@ const FileUpload = ({ onSuccess }) => {
         const body = {
             pnk: [],
             hd: [],
+            tkhq: [],
             fileDate: fileDate,
             contractNumber: contractNumber
         }
@@ -184,24 +196,35 @@ const FileUpload = ({ onSuccess }) => {
             if (val.type === "HD") {
                 delete val.type;
                 body.hd.push(val);
-            } else {
+            } else if ((val.type === "TKHQ")) {
+                delete val.type;
+                val.list.map(tkhq => body.tkhq.push(tkhq));
+
+            }
+            else {
                 delete val.type;
                 body.pnk.push(val);
             }
+
         })
 
-        console.log(body);
 
         let originalPNK = convertToOriginalPNK(body.pnk);
         body.pnk = originalPNK;
+        body.bank = bank;
+        console.log("prepare");
+        console.log(body);
 
 
         API.exportDisbursement({ data: body }).then((res) => {
+            console.log(res);
             let xlsx = URL.createObjectURL(new Blob([res.data], { type: "application/zip" }));
             onSuccess(xlsx, fileDate);
             // stop loading
         }).catch(err => {
-            alert('Xin lỗi đã có lỗi trong quá trình xử lý !');
+            // alert('Có lỗi trong quá trình giải ngân hồ sơ !');
+            alert(err);
+
             setWaiting(false);
         });
     }
@@ -251,12 +274,12 @@ const FileUpload = ({ onSuccess }) => {
                     <div className='content d-flex flex-column'>
                         <div className='w-100 d-flex'>
                             <div className='select-bank btn-neutral'>
-                                <select className='select-bank-content'>
-                                    <option>BIDV</option>
-                                    <option>Vietinbank</option>
-                                    <option>MB</option>
-                                    <option>Vietcombank</option>
-                                    <option>ACB</option>
+                                <select onChange={onChangeBank} className='select-bank-content'>
+                                    <option value="bidv">BIDV</option>
+                                    <option value="viettin">Vietinbank</option>
+                                    <option value="mb">MB</option>
+                                    <option value="bidv">Vietcombank</option>
+                                    <option value="bidv">ACB</option>
                                 </select>
                             </div>
                             <div className='import-file btn-info'>
