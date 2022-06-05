@@ -276,7 +276,7 @@ const FileUpload = ({ onSuccess }) => {
                             <div className='select-bank btn-neutral'>
                                 <select onChange={onChangeBank} className='select-bank-content'>
                                     <option value="bidv">BIDV</option>
-                                    <option value="viettin">Vietinbank</option>
+                                    <option value="vietin">Vietinbank</option>
                                     <option value="mb">MB</option>
                                     <option value="bidv">Vietcombank</option>
                                     <option value="bidv">ACB</option>
