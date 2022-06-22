@@ -96,7 +96,7 @@ const FileUpload = ({ onSuccess }) => {
             arr[index].type = "HD";
             arr[index].index = index;
         });
-
+        confirmData.hd = confirmData.hd || [];
 
         let toKhaiTab = {};
         toKhaiTab.list = confirmData.tkhq;
@@ -104,10 +104,11 @@ const FileUpload = ({ onSuccess }) => {
 
 
         let arr = [...confirmData.hd, ...newPNK];
+
         if (confirmData.tkhq !== undefined) {
             arr.push(toKhaiTab);
         }
-        console.log(arr);
+        console.log(new Date(), arr);
         return arr;
     }
 
@@ -166,17 +167,19 @@ const FileUpload = ({ onSuccess }) => {
         const formData = new FormData();
         formData.append('file', file[0]);
         let params = { 'bank': bank }
-        API.importDisbursement(params, formData).then(({ data }) => {
-            setWaiting(false);
-            // console.log(data.data);
+        API.importDisbursement(params, formData)
+            .then(({ data }) => {
+                setWaiting(false);
+                let newData = setIndexForBill(data.data);
 
-            setArrayBill(setIndexForBill(data.data));
-            hadOpenConfirm(true);
+                setArrayBill(newData);
+                hadOpenConfirm(true);
 
-        }).catch((err) => {
-            alert('Có lỗi trong quá trình Upload dữ liệu!');
-            setWaiting(false);
-        })
+            })
+            .catch((err) => {
+                alert('Có lỗi trong quá trình Upload dữ liệu!');
+                setWaiting(false);
+            })
     };
 
     // click "Xác nhận"

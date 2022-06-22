@@ -38,11 +38,11 @@ export default function Index() {
           <Container>
             <div className="content-center">
               <h2 className="d-sm-block">
-                Hồ sơ giải ngân {data ? data[1] : ""}
+                Hồ sơ {data ? data[1] : ""}
               </h2>
               {downloadable ?
                 <a className="btn btn-success py-4 " href={data[0]}
-                  download={`HoSoGiaiNgan-${data[1]}.zip`}>Tải về Hồ sơ</a>
+                  download={`HoSo-${data[1]}.zip`}>Tải về Hồ sơ</a>
                 :
                 <FileUpload onSuccess={onUploadSuccess} />
               }
