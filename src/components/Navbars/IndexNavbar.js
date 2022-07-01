@@ -35,6 +35,8 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+import { setBankSelected } from "custom-redux/configSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function IndexNavbar() {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -74,6 +76,14 @@ export default function IndexNavbar() {
       .getElementById("download-section")
       .scrollIntoView({ behavior: "smooth" });
   };
+
+  // 
+  const dispatch = useDispatch();
+  const name = useSelector(state => state.config.staffName);
+  const setBank = (bank) => {
+    dispatch(setBankSelected(bank));
+  }
+
   return (
     <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
       <Container>
@@ -118,6 +128,54 @@ export default function IndexNavbar() {
             </Row>
           </div>
 
+          <Nav navbar>
+
+            <NavItem className="p-0">
+              <UncontrolledDropdown >
+                <DropdownToggle
+                  caret
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Hồ sơ TTQT
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-with-icons bg-white">
+                  <DropdownItem onClick={() => setBank("bidv")}>
+                    <i className="tim-icons icon-paper" />
+                    Hồ sơ giải ngân (BIDV)
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setBank("vietin")}>
+                    <i className="tim-icons icon-paper" />
+                    Hồ sơ VietinBank
+                  </DropdownItem>
+                  <DropdownItem onClick={() => setBank("mb")}>
+                    <i className="tim-icons icon-paper" />
+                    Theo dõi đơn DK MB
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
+            </NavItem>
+            <NavItem className="p-0">
+              <Button
+                color="default"
+                onClick={scrollToDownload}
+              >
+                Hồ sơ cầm hàng
+              </Button>
+            </NavItem>
+            {!!name &&
+              <NavItem className="p-0">
+                <NavLink
+                  data-placement="bottom"
+                  href="/user"
+                  rel="noopener noreferrer"
+                >
+                  <p>Chào {name}!</p>
+                </NavLink>
+              </NavItem>
+            }
+
+          </Nav>
         </Collapse>
       </Container>
     </Navbar>
