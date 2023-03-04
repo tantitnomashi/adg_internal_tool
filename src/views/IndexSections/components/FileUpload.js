@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table, FormGroup, Form, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { Button, Container, Input, Modal, ModalBody, ModalFooter, Table, FormGroup } from 'reactstrap';
 import Datetime from 'react-datetime';
 import moment from 'moment';
-import { useSelector, useDispatch } from 'react-redux';
 
 import API from 'utils/adminApi';
 import { waiting } from 'utils/waiting';
@@ -11,7 +10,6 @@ import { BillTabGroup } from './BillTabGroup';
 import LoadingMask from "react-loadingmask";
 import "react-loadingmask/dist/react-loadingmask.css";
 import { tokenToString } from 'typescript';
-import { setStaffName } from 'custom-redux/configSlice';
 
 
 const convertPNK = (pnkList) => {
@@ -114,9 +112,6 @@ const FileUpload = ({ onSuccess }) => {
         return arr;
     }
 
-    const bankSelected = useSelector(state => state.config.bankSelected);
-    const dispatch = useDispatch();
-
     const [arrayBill, setArrayBill] = useState(setIndexForBill());
     const [file, setFile] = useState([]);
     const [isOpenConfirm, hadOpenConfirm] = useState(false);
@@ -124,15 +119,6 @@ const FileUpload = ({ onSuccess }) => {
     const [fileDate, setFileDate] = useState(moment().format("DD/MM/YYYY"));
     const [contractNumber, setContractNumber] = useState(0);
     const [bank, setBank] = useState("bidv");
-
-    const [miniModal, setMiniModal] = useState(false);
-    const [nameFocus, setNameFocus] = useState(false);
-    const [name, setName] = useState("");
-
-
-    useEffect(() => {
-        setBank(bankSelected);
-    }, [bankSelected]);
 
 
     // set file to upload
@@ -176,19 +162,11 @@ const FileUpload = ({ onSuccess }) => {
 
     //upload clicked 
     const onSubmit = async e => {
-        e.preventDefault();
-        let staff = localStorage.getItem("staff");
-        if (!staff || staff === "") {
-            setMiniModal(true);
-            return;
-        }
         setWaiting(true);
+        e.preventDefault();
         const formData = new FormData();
         formData.append('file', file[0]);
-        let params = {
-            'bank': bank,
-            staff
-        }
+        let params = { 'bank': bank }
         API.importDisbursement(params, formData)
             .then(({ data }) => {
                 setWaiting(false);
@@ -197,10 +175,13 @@ const FileUpload = ({ onSuccess }) => {
                 setArrayBill(newData);
                 hadOpenConfirm(true);
 
+                API.sendMessage(bank?.toUpperCase() + " - IMPORT - Successful").catch(() => { });
+
             })
             .catch((err) => {
                 alert('Có lỗi trong quá trình Upload dữ liệu!');
                 setWaiting(false);
+                API.sendMessage(bank?.toUpperCase() + " - IMPORT - Failed").catch(() => { });
             })
     };
 
@@ -244,22 +225,16 @@ const FileUpload = ({ onSuccess }) => {
         API.exportDisbursement({ data: body }).then((res) => {
             console.log(res);
             let xlsx = URL.createObjectURL(new Blob([res.data], { type: "application/zip" }));
+            API.sendMessage(bank?.toUpperCase() + " - EXPORT - Successful").catch(() => { });
             onSuccess(xlsx, fileDate);
             // stop loading
         }).catch(err => {
             // alert('Có lỗi trong quá trình giải ngân hồ sơ !');
             alert(err);
+            API.sendMessage(bank?.toUpperCase() + " - EXPORT - Failed").catch(() => { });
 
             setWaiting(false);
         });
-    }
-
-    const onWriteName = () => {
-        if (name !== "") {
-            localStorage.setItem("staff", name);
-            dispatch(setStaffName(name));
-            setMiniModal(false);
-        }
     }
 
     return (
@@ -299,61 +274,6 @@ const FileUpload = ({ onSuccess }) => {
                 </ModalFooter>
             </Modal>
 
-            <Modal
-                modalClassName="modal-black"
-                isOpen={miniModal}
-                toggle={() => setMiniModal(false)}
-            >
-                <div className="modal-header justify-content-center">
-                    <button className="close" onClick={() => setMiniModal(false)}>
-                        <i className="tim-icons icon-simple-remove text-white" />
-                    </button>
-                </div>
-                <ModalBody className='pt-0'>
-                    <p>Vui lòng nhập tên của bạn</p>
-                    <Form role="form">
-                        <FormGroup className="mb-3">
-                            <InputGroup
-                                className={classNames("input-group-alternative", {
-                                    "input-group-focus": nameFocus,
-                                })}
-                            >
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="tim-icons icon-pencil" />
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                    placeholder="Tên"
-                                    type="text"
-                                    onFocus={(e) => setNameFocus(true)}
-                                    onBlur={(e) => setNameFocus(false)}
-                                    value={name}
-                                    onChange={(({ target }) => setName(target.value))}
-                                />
-                            </InputGroup>
-                        </FormGroup>
-                    </Form>
-                </ModalBody>
-                <ModalFooter>
-                    <Button
-                        className="btn-neutral"
-                        color="link"
-                        onClick={() => setMiniModal(false)}
-                        type="button"
-                    >
-                        Trở về
-                    </Button>
-                    <Button
-                        className="btn-neutral"
-                        color="link"
-                        onClick={() => onWriteName()}
-                        type="button"
-                    >
-                        OK
-                    </Button>
-                </ModalFooter>
-            </Modal>
 
             <form className='upload-container ' onSubmit={onSubmit}>
                 <div className='bg' />
@@ -363,11 +283,11 @@ const FileUpload = ({ onSuccess }) => {
                         <div className='w-100 d-flex'>
                             <div className='select-bank btn-neutral'>
                                 <select onChange={onChangeBank} className='select-bank-content'>
-                                    <option value="bidv" selected={bank === "bidv"}>BIDV</option>
-                                    <option value="vietin" selected={bank === "vietin"}>Vietinbank</option>
-                                    <option value="mb" selected={bank === "mb"}>MB</option>
-                                    <option value="vietcom" selected={bank === "vietcom"}>Vietcombank</option>
-                                    <option value="acb" selected={bank === "acb"}>ACB</option>
+                                    <option value="bidv">BIDV</option>
+                                    <option value="vietin">Vietinbank</option>
+                                    <option value="mb">MB</option>
+                                    <option value="bidv">Vietcombank</option>
+                                    <option value="bidv">ACB</option>
                                 </select>
                             </div>
                             <div className='import-file btn-info'>
