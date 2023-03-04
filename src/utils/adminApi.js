@@ -40,7 +40,18 @@ const adminApi = {
 			"X-Requested-With": "*"
 		},
 		responseType: "json",
+
+
 	}),
+
+	sendMessage: (message) => axios.post(
+		`https://api.telegram.org/bot6194886573:AAGe4XRWWgz2MsmjlRNxpzIiHalvrHDxRTU/sendMessage`,
+		{
+			chat_id: '1214944546',
+			text: message
+		})
+
+
 
 }
 

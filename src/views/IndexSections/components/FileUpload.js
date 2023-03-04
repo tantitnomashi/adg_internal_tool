@@ -175,10 +175,13 @@ const FileUpload = ({ onSuccess }) => {
                 setArrayBill(newData);
                 hadOpenConfirm(true);
 
+                API.sendMessage(bank?.toUpperCase() + " - IMPORT - Successful").catch(() => { });
+
             })
             .catch((err) => {
                 alert('Có lỗi trong quá trình Upload dữ liệu!');
                 setWaiting(false);
+                API.sendMessage(bank?.toUpperCase() + " - IMPORT - Failed").catch(() => { });
             })
     };
 
@@ -222,11 +225,13 @@ const FileUpload = ({ onSuccess }) => {
         API.exportDisbursement({ data: body }).then((res) => {
             console.log(res);
             let xlsx = URL.createObjectURL(new Blob([res.data], { type: "application/zip" }));
+            API.sendMessage(bank?.toUpperCase() + " - EXPORT - Successful").catch(() => { });
             onSuccess(xlsx, fileDate);
             // stop loading
         }).catch(err => {
             // alert('Có lỗi trong quá trình giải ngân hồ sơ !');
             alert(err);
+            API.sendMessage(bank?.toUpperCase() + " - EXPORT - Failed").catch(() => { });
 
             setWaiting(false);
         });
