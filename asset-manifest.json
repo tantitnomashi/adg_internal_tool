@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/adg-internal-tools/static/css/main.b6f95029.css",
-    "main.js": "/adg-internal-tools/static/js/main.d38d7257.js",
-    "static/media/square4.png": "/adg-internal-tools/static/media/square4.b0072563cab16ef45d81.png",
-    "static/media/square1.png": "/adg-internal-tools/static/media/square1.082ea17aaf44aed9868a.png",
-    "static/media/square3.png": "/adg-internal-tools/static/media/square3.235ea41b7cee0696448d.png",
-    "static/media/square2.png": "/adg-internal-tools/static/media/square2.8ce0f9b6a9f216ada045.png",
-    "static/media/square5.png": "/adg-internal-tools/static/media/square5.16283001f5a086113265.png",
-    "static/media/darken-night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.png": "/adg-internal-tools/static/media/darken-night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.049a2cd26a85856a45e6.png",
-    "static/media/night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.png": "/adg-internal-tools/static/media/night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.e6a30d27482b2b409f71.png",
-    "static/media/dots.png": "/adg-internal-tools/static/media/dots.1e305f981d41a2c30adb.png",
-    "static/media/nucleo.eot": "/adg-internal-tools/static/media/nucleo.bd5cce8bf40be5947637.eot",
-    "static/media/nucleo.ttf": "/adg-internal-tools/static/media/nucleo.35b08447277ca7bf9f09.ttf",
-    "static/media/nucleo.woff": "/adg-internal-tools/static/media/nucleo.5c65ef4d6434bb8062a3.woff",
-    "static/media/nucleo.woff2": "/adg-internal-tools/static/media/nucleo.6dfb4833e3a0132fd1fc.woff2",
-    "index.html": "/adg-internal-tools/index.html",
-    "main.b6f95029.css.map": "/adg-internal-tools/static/css/main.b6f95029.css.map",
-    "main.d38d7257.js.map": "/adg-internal-tools/static/js/main.d38d7257.js.map"
+    "main.css": "/adg-internal-tool/static/css/main.3d715d83.css",
+    "main.js": "/adg-internal-tool/static/js/main.40a5a4f4.js",
+    "static/media/square4.png": "/adg-internal-tool/static/media/square4.b0072563cab16ef45d81.png",
+    "static/media/square1.png": "/adg-internal-tool/static/media/square1.082ea17aaf44aed9868a.png",
+    "static/media/square3.png": "/adg-internal-tool/static/media/square3.235ea41b7cee0696448d.png",
+    "static/media/square2.png": "/adg-internal-tool/static/media/square2.8ce0f9b6a9f216ada045.png",
+    "static/media/square5.png": "/adg-internal-tool/static/media/square5.16283001f5a086113265.png",
+    "static/media/darken-night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.png": "/adg-internal-tool/static/media/darken-night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.049a2cd26a85856a45e6.png",
+    "static/media/night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.png": "/adg-internal-tool/static/media/night-sky-full-of-stars-fantasy-animation-made-of-magical-sparkly-light-particles-flickering-on-a-purple-blue-gradient-background_bajacpz7x_thumbnail-full01.e6a30d27482b2b409f71.png",
+    "static/media/dots.png": "/adg-internal-tool/static/media/dots.1e305f981d41a2c30adb.png",
+    "static/media/nucleo.eot": "/adg-internal-tool/static/media/nucleo.bd5cce8bf40be5947637.eot",
+    "static/media/nucleo.ttf": "/adg-internal-tool/static/media/nucleo.35b08447277ca7bf9f09.ttf",
+    "static/media/nucleo.woff": "/adg-internal-tool/static/media/nucleo.5c65ef4d6434bb8062a3.woff",
+    "static/media/nucleo.woff2": "/adg-internal-tool/static/media/nucleo.6dfb4833e3a0132fd1fc.woff2",
+    "index.html": "/adg-internal-tool/index.html",
+    "main.3d715d83.css.map": "/adg-internal-tool/static/css/main.3d715d83.css.map",
+    "main.40a5a4f4.js.map": "/adg-internal-tool/static/js/main.40a5a4f4.js.map"
   },
   "entrypoints": [
-    "static/css/main.b6f95029.css",
-    "static/js/main.d38d7257.js"
+    "static/css/main.3d715d83.css",
+    "static/js/main.40a5a4f4.js"
   ]
 }
