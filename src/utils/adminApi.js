@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 
-const host = "https://api.adg-internal.com"
+// const host = "https://api.adg-internal.com"
+const host = "https://af5f-2402-800-63a8-b538-d90c-8f66-f296-ff3.ngrok-free.app"
 const TTQT = "/international-payment";
 const HSGN = "/disbursement";
 
